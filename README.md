@@ -4,7 +4,7 @@ react-flybase-datagrid
 [![npm package][npm-badge]][npm]
 [![Coveralls][coveralls-badge]][coveralls]
 
-React Data table component for Flybase.org which has sort/filter/export capabilities.
+React Data table component using Fixed-Data-Table for Flybase.org which has sort/filter/export capabilities.
 
 [build-badge]: https://img.shields.io/travis/user/repo/master.png?style=flat-square
 [build]: https://travis-ci.org/user/repo
