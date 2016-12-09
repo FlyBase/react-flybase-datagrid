@@ -1,4 +1,4 @@
-# my-appr
+react-flybase-datagrid
 
 [![Travis][build-badge]][build]
 [![npm package][npm-badge]][npm]
