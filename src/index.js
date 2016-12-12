@@ -2,6 +2,9 @@ import React from 'react'
 
 import {Table, Column, Cell} from 'fixed-data-table';
 import 'fixed-data-table/dist/fixed-data-table.css';
+import CsvDownloader from 'react-csv-downloader';
+
+
 // var partial = require('./lib/partial')
 var SortTypes = {
   ASC: 'ASC',
@@ -107,6 +110,10 @@ _download(event){
         <br/><br/>
 
         <button onClick={this._download}> Download </button>
+
+<CsvDownloader>
+  <button>Download</button>
+</CsvDownloader>
 
         <Table
           rowHeight={30}
