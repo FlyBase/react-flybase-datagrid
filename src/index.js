@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {Table, Column, Cell} from 'fixed-data-table';
-import './dist/fixed-data-table.css';
+import 'fixed-data-table/dist/fixed-data-table.css';
 // var partial = require('./lib/partial')
 var SortTypes = {
   ASC: 'ASC',
