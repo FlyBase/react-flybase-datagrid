@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "fixed-data-table": "^0.6.3",
-    "react-csv-downloader": "github:flybase/react-csv-downloader",
+    "react-csv-downloader": "https://github.com/FlyBase/react-csv-downloader/tarball/master",
     "react-file-download": "^0.3.2"
   },
   "peerDependencies": {
