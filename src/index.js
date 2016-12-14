@@ -9,7 +9,7 @@ var SortTypes = {
   DESC: 'DESC',
 };
 
-var MovieTable = React.createClass({
+var FlybaseTable = React.createClass({
 
   //  static propTypes = {
   //   bom: PropTypes.bool,
@@ -82,7 +82,7 @@ _download(e){
     a.download = 'filename';
 
     var bomCode = '%EF%BB%BF';  
-    a.href = 'data:text/csv;charset=utf-8,' + bomCode + encodeURIComponent(csv(['foo', 'bar' , 'baz'],this.state.rows));
+    a.href = 'data:text/csv;charset=utf-8,' + bomCode + encodeURIComponent(['a','b']);
     // a.href = `data:text/csv;charset=utf-8,${encodeURIComponent(this.state.csv)}`;
     a.click();
  
@@ -164,8 +164,7 @@ _download(e){
       <div>
        
         <label>Filter by <input onChange={this._onFilterChange} /></label>
-        <br/><br/>
-
+      
         <button onClick={this._download}> Download </button>
 
         <Table
@@ -203,4 +202,4 @@ _download(e){
   },
 });
 
-export default MovieTable;
+export default FlybaseTable;
