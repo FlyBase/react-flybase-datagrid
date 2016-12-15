@@ -10,53 +10,8 @@ var SortTypes = {
 };
 
 var FlybaseTable = React.createClass({
-
-  //  static propTypes = {
-  //   bom: PropTypes.bool,
-  //   children: PropTypes.oneOfType([
-  //     PropTypes.array,
-  //     PropTypes.string,
-  //     PropTypes.element
-  //   ]),
-  //   columns: PropTypes.oneOfType([
-  //     PropTypes.bool,
-  //     PropTypes.array,
-  //     PropTypes.arrayOf(PropTypes.object)
-  //   ]),
-  //   datas: PropTypes.arrayOf(PropTypes.oneOfType([
-  //     PropTypes.object,
-  //     PropTypes.array
-  //   ])).isRequired,
-  //   filename: PropTypes.string.isRequired,
-  //   noHeader: PropTypes.bool,
-  //   prefix: PrefixSuffixType,
-  //   separator: PropTypes.string,
-  //   text: PropTypes.string,
-  //   suffix: PrefixSuffixType
-  // };
-
-  // static defaultProps = {
-  //   separator: ',',
-  //   columns: false,
-  //   bom: true,
-  //   noHeader: false
-  // };
-
-  // constructor(props) {
-  //   super();
-
-  //   this.state = {
-  //     csv: csv(props.columns, props.datas, props.separator, props.noHeader)
-  //   };
-  // }
-
   getInitialState() {
  this._download = this._download.bind(this);
-
-
-// this.state = {
-//       csv: csv(props.columns, props.datas, props.separator, props.noHeader)
-//     };
 
     return {
       rows: [
@@ -68,22 +23,44 @@ var FlybaseTable = React.createClass({
       filterBy: null,
       sortBy: 'id',
       sortDir: null,
-
-      // csv: this.rows,
     };
   },
 
+getHeader(objArray){
+   return Object.keys(objArray[0]);
+},
+
+toCSV(objArray){
+        var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+        var str = '';
+
+        for (var i = 0; i < array.length; i++) {
+            var line = '';
+            for (var index in array[i]) {
+                if (line != '') line += ','
+
+                    line += array[i][index];
+            }
+
+             str += line + '\r\n';
+        }
+        return str;
+},
+
 _download(e){
 
-// console.debug(this.state.rows);
+console.debug(this.state.rows);
 
   const a = document.createElement('a');
     a.textContent = 'download';
     a.download = 'filename';
 
     var bomCode = '%EF%BB%BF';  
-    a.href = 'data:text/csv;charset=utf-8,' + bomCode + encodeURIComponent(['a','b']);
-    // a.href = `data:text/csv;charset=utf-8,${encodeURIComponent(this.state.csv)}`;
+
+    var header = this.getHeader(this.state.rows);
+    var data = this.toCSV(this.state.rows);
+    var datas = header + '\n' + data;
+    a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(datas);
     a.click();
  
  },
@@ -164,7 +141,7 @@ _download(e){
       <div>
        
         <label>Filter by <input onChange={this._onFilterChange} /></label>
-      
+
         <button onClick={this._download}> Download </button>
 
         <Table
