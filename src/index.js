@@ -131,7 +131,6 @@ console.debug(this.state.rows);
   
   render() {   
       var sortDirArrow = "";
-      var fileDownload = require('react-file-download');
     
     if (this.state.sortDir !== null){
       sortDirArrow = this.state.sortDir === SortTypes.DESC ? ' ↓' : ' ↑';
