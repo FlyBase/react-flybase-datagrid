@@ -34,11 +34,6 @@ generateList(){
     return items;
   },
 
-
-  getHeader(objArray){
-   return Object.keys(objArray[0]);
- },
-
 toCSV(objArray){
   var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
   var str = '';
@@ -53,6 +48,7 @@ toCSV(objArray){
 
     str += line + '\r\n';
   }
+  str = Object.keys(objArray[0]) + '\n' + str;
   return str;
 },
 
@@ -66,9 +62,8 @@ _download(e){
 
   var bomCode = '%EF%BB%BF';  
 
-  var header = this.getHeader(this.state.rows);
   var data = this.toCSV(this.state.rows);
-  var datas = header + '\n' + data;
+ 
   a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(datas);
   a.click();
 
