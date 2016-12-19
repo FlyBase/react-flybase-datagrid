@@ -64,7 +64,7 @@ _download(e){
 
   var data = this.toCSV(this.state.rows);
  
-  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(datas);
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(data);
   a.click();
 
 },
