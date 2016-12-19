@@ -10,29 +10,15 @@ var SortTypes = {
 
 var FlybaseTable = React.createClass({
   getInitialState() {
-   this._download = this._download.bind(this);
-
-   var list = this.generateList();
 
    return {
-    rows: list,
+    rows: this.props.data,
     filteredRows: null,
     filterBy: null,
     sortBy: 'id',
     sortDir: null,
   };
 },
-
-generateList(){
-  var items = [];
-
-  for (var i=1; i<=5000; i++){
-      
-      items.push({ id: i, name: faker.name.findName(), address: faker.address.streetAddress(), state: faker.address.stateAbbr(), zip: faker.address.zipCode()});
-    }
-
-    return items;
-  },
 
 toCSV(objArray){
   var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
