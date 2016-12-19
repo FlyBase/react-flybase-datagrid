@@ -54,15 +54,13 @@ toCSV(objArray){
 
 _download(e){
 
-  console.debug(this.state.rows);
-
   const a = document.createElement('a');
   a.textContent = 'download';
   a.download = 'filename';
 
   var bomCode = '%EF%BB%BF';  
 
-  var data = this.toCSV(this.state.rows);
+  var data = this.toCSV(this.state.filteredRows);
  
   a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(data);
   a.click();
