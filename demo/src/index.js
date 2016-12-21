@@ -8,11 +8,11 @@ import faker from 'faker';
 function getHeaders(){
 
  var columns = [
-	 {id:'id', name:'ID'},
-	 {id:'name', name:'Name'},
-	 {id:'address', name:'Street Address'},
-   {id:'state', name:'State'},
-	 {id:'zip', name:'Zip Code'}
+ {id:'id', name:'ID'},
+ {id:'name', name:'Name'},
+ {id:'address', name:'Street Address'},
+ {id:'state', name:'State'},
+ {id:'zip', name:'Zip Code'}
  ];
 
  return columns;
