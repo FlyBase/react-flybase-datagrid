@@ -44,18 +44,24 @@ class MyTextCell extends React.Component {
       return str;
     }
 
+
     download(){
       const a = document.createElement('a');
       a.textContent = 'download';
       a.download = 'filename';
 
       var bomCode = '%EF%BB%BF';  
-
-      var data = toCSV(this.props.data);
+      
+      var array = [];
+      array.push({'a':'b'});
+      var data = this.toCSV(array);
+      // var data = 'a,b,c,d';
 
       a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(data);
       a.click();
     }
+
+
 
     render() {
 
@@ -79,9 +85,6 @@ class MyTextCell extends React.Component {
         <button onClick={this.download}> Download </button>
 
         <Table
-
-
-
         rowsCount={this.state.myTableData.length}
         rowHeight={50}
         headerHeight={50}
