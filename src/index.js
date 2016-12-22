@@ -24,6 +24,7 @@ class MyTextCell extends React.Component {
       this.state = {
         myTableData: this.props.data,
       };
+      this.download = this.download.bind(this);
     }
 
     toCSV(objArray){
