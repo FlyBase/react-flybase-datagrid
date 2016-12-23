@@ -53,11 +53,8 @@ class MyTextCell extends React.Component {
 
       var bomCode = '%EF%BB%BF';  
       
-      var array = [];
-      array.push({'a':'b'});
-      var data = this.toCSV(array);
-      // var data = 'a,b,c,d';
-
+      var data = this.toCSV(this.state.myTableData);
+      
       a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(data);
       a.click();
     }
