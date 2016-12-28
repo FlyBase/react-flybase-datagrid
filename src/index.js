@@ -5,16 +5,11 @@ var FixedDataTable = require('fixed-data-table');
 const React = require('react');
 const {Table, Column, Cell} = FixedDataTable;
 
-class MyTextCell extends React.Component {
-  render() {
-    const {rowIndex, field, data, ...props} = this.props;
-    return (
-      <Cell {...props}>
-        {data[rowIndex][field]}
-      </Cell>
-    );
-  }
-}
+const TextCell = ({rowIndex, data, field, ...props}) => (
+  <Cell {...props}>
+    {data[rowIndex][field]}
+  </Cell>
+);
 
 class MyTable extends React.Component {
   constructor(props) {
@@ -61,7 +56,7 @@ class MyTable extends React.Component {
         key={column.id} 
         header={column.name}
         cell={
-          <MyTextCell
+          <TextCell
           data={this.state.myTableData}
           field={column.id}
           />
