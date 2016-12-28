@@ -90,4 +90,4 @@ class MyTable extends React.Component {
   }
 }
 
-export default MyTable;
+module.exports = MyTable;
