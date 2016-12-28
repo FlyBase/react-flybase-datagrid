@@ -32,7 +32,7 @@ function generateList(){
 let Demo = React.createClass({
   render() {
     return <div>
-    <h1>Alleles</h1>
+    <h1>datagrid1</h1>
 
     <Component data={generateList()} columns={getHeaders()}/>
     </div>
