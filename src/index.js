@@ -1,70 +1,63 @@
-const React = require('react');
-const {Table, Column, Cell} = require('fixed-data-table');
+"use strict";
 
-var SortTypes = {
-  ASC: 'ASC',
-  DESC: 'DESC',
-};
+var FixedDataTable = require('fixed-data-table');
+
+const React = require('react');
+const {Table, Column, Cell} = FixedDataTable;
 
 class MyTextCell extends React.Component {
   render() {
     const {rowIndex, field, data, ...props} = this.props;
     return (
       <Cell {...props}>
-      {data[rowIndex][field]}
+        {data[rowIndex][field]}
       </Cell>
-      );
-    }
+    );
+  }
+}
+
+class MyTable extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      myTableData: this.props.data,
+    };
+
+    this.download = this.download.bind(this);
   }
 
-  class MyTable extends React.Component {
-    constructor(props) {
-      super(props);
+  toCSV(objArray){
+    var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+    var str = '';
 
-      this.state = {
-        myTableData: this.props.data,
-      };
-      this.download = this.download.bind(this);
-    }
+    for (var i = 0; i < array.length; i++) {
+      var line = '';
+      for (var index in array[i]) {
+        if (line != '') line += ','
 
-    toCSV(objArray){
-      var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
-      var str = '';
-
-      for (var i = 0; i < array.length; i++) {
-        var line = '';
-        for (var index in array[i]) {
-          if (line != '') line += ','
-
-            line += array[i][index];
-        }
-
-        str += line + '\r\n';
+          line += array[i][index];
       }
-      str = Object.keys(objArray[0]) + '\n' + str;
-      return str;
+
+      str += line + '\r\n';
     }
+    str = Object.keys(objArray[0]) + '\n' + str;
+    return str;
+  }
 
+  download(){
+    const a = document.createElement('a');
+    a.textContent = 'download';
+    a.download = 'filename';
+    var data = this.toCSV(this.state.myTableData);
+    a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(data);
+    a.click();
+  }
 
-    download(){
-      const a = document.createElement('a');
-      a.textContent = 'download';
-      a.download = 'filename';
+  render() {
 
-      var bomCode = '%EF%BB%BF';  
-      
-      var data = this.toCSV(this.state.myTableData);
-      
-      a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(data);
-      a.click();
-    }
-
-
-
-    render() {
-
-      const columns = this.props.columns.map((column) =>
-        <Column
+    const columns = this.props.columns.map((column) =>
+      <Column
         key={column.id} 
         header={column.name}
         cell={
@@ -74,27 +67,27 @@ class MyTextCell extends React.Component {
           />
         }
         width={200}
-        />
-        );
+      />
+    );
 
-      return (
-        <div>
+    return (
+      <div>
 
         <button onClick={this.download}> Download </button>
 
         <Table
-        rowsCount={this.state.myTableData.length}
-        rowHeight={50}
-        headerHeight={50}
-        width={1000}
-        height={500}>
+          rowsCount={this.state.myTableData.length}
+          rowHeight={50}
+          headerHeight={50}
+          width={1000}
+          height={500}>
 
-        {columns}
+            {columns}
 
         </Table>
-        </div>
-        );
-      }
-    }
+      </div>
+    );
+  }
+}
 
-    export default MyTable;
+export default MyTable;
