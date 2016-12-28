@@ -46,7 +46,22 @@ class SortHeaderCell extends React.Component {
   }
 }
 
+class DataListWrapper {
+  constructor(indexMap, data) {
+    this._indexMap = indexMap;
+    this._data = data;
+  }
 
+  getSize() {
+    return this._indexMap.length;
+  }
+
+  getObjectAt(index) {
+    return this._data.getObjectAt(
+      this._indexMap[index],
+    );
+  }
+}
 
 const TextCell = ({rowIndex, data, field, ...props}) => (
   <Cell {...props}>
@@ -58,10 +73,10 @@ class MyTable extends React.Component {
   constructor(props) {
     super(props);
 
-    this._dataList = this.props.data;
-
     this._defaultSortIndexes = [];
-    var size = this._dataList.length;
+    this._dataList = new DataListWrapper(this._defaultSortIndexes, this.props.data);
+
+    var size = this._dataList.getSize();
     for (var index = 0; index < size; index++) {
       this._defaultSortIndexes.push(index);
     }
@@ -102,6 +117,7 @@ class MyTable extends React.Component {
         [columnKey]: sortDir,
       },
     });
+      this._onSortChange = this._onSortChange.bind(this);
   }
 
   toCSV(objArray){
@@ -132,9 +148,11 @@ class MyTable extends React.Component {
   }
 
   render() {
+    var {sortedDataList, colSortDirs} = this.state;
 
     const columns = this.props.columns.map((column) =>
       <Column
+        key={column.id}
         columnKey={column.id} 
         header={
           <SortHeaderCell
