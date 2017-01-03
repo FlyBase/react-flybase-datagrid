@@ -17,7 +17,6 @@ function reverseSortDirection(sortDir) {
 class SortHeaderCell extends React.Component {
   constructor(props) {
     super(props);
-    this.onSortChange = this.onSortChange.bind(this);
 
     this._onSortChange = this._onSortChange.bind(this);
   }
@@ -118,7 +117,6 @@ class MyTable extends React.Component {
         [columnKey]: sortDir,
       },
     });
-      this._onSortChange = this._onSortChange.bind(this);
   }
 
   toCSV(objArray){
