@@ -117,6 +117,7 @@ class MyTable extends React.Component {
         [columnKey]: sortDir,
       },
     });
+      this._onSortChange = this._onSortChange.bind(this);
   }
 
   toCSV(objArray){
@@ -149,7 +150,7 @@ class MyTable extends React.Component {
   render() {
     var {sortedDataList, colSortDirs} = this.state;
 
-    const columns = this.props.columns.map((column) =>
+    const columns = this.props.columns.map((column) => (
       <Column
         key={column.id}
         columnKey={column.id} 
@@ -167,8 +168,7 @@ class MyTable extends React.Component {
           />
         }
         width={200}
-      />
-    );
+      />), this);
 
     return (
       <div>
