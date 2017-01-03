@@ -17,6 +17,7 @@ function reverseSortDirection(sortDir) {
 class SortHeaderCell extends React.Component {
   constructor(props) {
     super(props);
+    this.onSortChange = this.onSortChange.bind(this);
 
     this._onSortChange = this._onSortChange.bind(this);
   }
@@ -163,8 +164,8 @@ class MyTable extends React.Component {
         }
         cell={
           <TextCell
-          data={this.state.myTableData}
-          field={column.id}
+            data={this.state.myTableData}
+            field={column.id}
           />
         }
         width={200}
