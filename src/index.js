@@ -1,9 +1,5 @@
-"use strict";
-
-var FixedDataTable = require('fixed-data-table');
-
-const React = require('react');
-const {Table, Column, Cell} = FixedDataTable;
+import React, { Component } from 'react';
+import FixedDataTable, { Table, Column, Cell } from 'fixed-data-table';
 
 var SortTypes = {
   ASC: 'ASC',
@@ -14,7 +10,7 @@ function reverseSortDirection(sortDir) {
   return sortDir === SortTypes.DESC ? SortTypes.ASC : SortTypes.DESC;
 }
 
-class SortHeaderCell extends React.Component {
+class SortHeaderCell extends Component {
   constructor(props) {
     super(props);
 
@@ -24,7 +20,7 @@ class SortHeaderCell extends React.Component {
   render() {
     var {sortDir, children, ...props} = this.props;
     return (
-      <Cell {...props}>
+      <Cell>
         <a onClick={this._onSortChange}>
           {children} {sortDir ? (sortDir === SortTypes.DESC ? '↓' : '↑') : ''}
         </a>
@@ -69,7 +65,7 @@ const TextCell = ({rowIndex, data, field, ...props}) => (
   </Cell>
 );
 
-class MyTable extends React.Component {
+class MyTable extends Component {
   constructor(props) {
     super(props);
 
@@ -191,4 +187,4 @@ class MyTable extends React.Component {
   }
 }
 
-module.exports = MyTable;
+export default MyTable;
