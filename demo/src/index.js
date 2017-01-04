@@ -29,12 +29,13 @@ function generateList(){
  return items;
 };
 
+const data = generateList();
+
 let Demo = React.createClass({
   render() {
     return <div>
     <h1>datagrid1</h1>
-
-    <Component data={generateList()} columns={getHeaders()}/>
+    <Component data={data} columns={getHeaders()} rowsCount={data.length} />
     </div>
   }
 })

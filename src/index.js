@@ -1,190 +1,88 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import FixedDataTable, { Table, Column, Cell } from 'fixed-data-table';
 
-var SortTypes = {
-  ASC: 'ASC',
-  DESC: 'DESC',
-};
+import { ASC, DESC, NONE } from './constants';
+import Header from './components/Header';
 
-function reverseSortDirection(sortDir) {
-  return sortDir === SortTypes.DESC ? SortTypes.ASC : SortTypes.DESC;
-}
-
-class SortHeaderCell extends Component {
+class FlyBaseDataGrid extends Component {
   constructor(props) {
     super(props);
 
-    this._onSortChange = this._onSortChange.bind(this);
-  }
-
-  render() {
-    var {sortDir, children, ...props} = this.props;
-    return (
-      <Cell>
-        <a onClick={this._onSortChange}>
-          {children} {sortDir ? (sortDir === SortTypes.DESC ? '↓' : '↑') : ''}
-        </a>
-      </Cell>
-    );
-  }
-
-  _onSortChange(e) {
-    e.preventDefault();
-
-    if (this.props.onSortChange) {
-      this.props.onSortChange(
-        this.props.columnKey,
-        this.props.sortDir ?
-          reverseSortDirection(this.props.sortDir) :
-          SortTypes.DESC
-      );
-    }
-  }
-}
-
-class DataListWrapper {
-  constructor(indexMap, data) {
-    this._indexMap = indexMap;
-    this._data = data;
-  }
-
-  getSize() {
-    return this._indexMap.length;
-  }
-
-  getObjectAt(index) {
-    return this._data.getObjectAt(
-      this._indexMap[index],
-    );
-  }
-}
-
-const TextCell = ({rowIndex, data, field, ...props}) => (
-  <Cell {...props}>
-    {data[rowIndex][field]}
-  </Cell>
-);
-
-class MyTable extends Component {
-  constructor(props) {
-    super(props);
-
-    this._defaultSortIndexes = [];
-    this._dataList = new DataListWrapper(this._defaultSortIndexes, this.props.data);
-
-    var size = this._dataList.getSize();
-    for (var index = 0; index < size; index++) {
-      this._defaultSortIndexes.push(index);
-    }
+    const sortCols = {};
+    this.props.columns.forEach((col) => sortCols[col.id] = NONE);
 
     this.state = {
-      myTableData: this.props.data,
-      sortedDataList: this._dataList,
-      colSortDirs: {},
+      sortDir: sortCols,
     };
-
-    this._onSortChange = this._onSortChange.bind(this);
-    this.download = this.download.bind(this);
+    this.handleSort = this.handleSort.bind(this);
   }
 
-  _onSortChange(columnKey, sortDir) {
-    var sortIndexes = this._defaultSortIndexes.slice();
+  handleSort(column) {
+    const current = this.state.sortDir;
+    const sortDir = current[column];
 
-    sortIndexes.sort((indexA, indexB) => {
-      var valueA = this._dataList.getObjectAt(indexA)[columnKey];
-      var valueB = this._dataList.getObjectAt(indexB)[columnKey];
-      var sortVal = 0;
-      if (valueA > valueB) {
-        sortVal = 1;
-      }
-      if (valueA < valueB) {
-        sortVal = -1;
-      }
-      if (sortVal !== 0 && sortDir === SortTypes.ASC) {
-        sortVal = sortVal * -1;
-      }
-
-      return sortVal;
-    });
-
-    this.setState({
-      sortedDataList: null,
-      colSortDirs: {
-        [columnKey]: sortDir,
-      },
-    });
-  }
-
-  toCSV(objArray){
-    var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
-    var str = '';
-
-    for (var i = 0; i < array.length; i++) {
-      var line = '';
-      for (var index in array[i]) {
-        if (line != '') line += ','
-
-          line += array[i][index];
-      }
-
-      str += line + '\r\n';
+    this.props.columns.forEach((col) => current[col.id] = NONE);
+    if (sortDir === ASC) {
+      current[column] = DESC;
     }
-    str = Object.keys(objArray[0]) + '\n' + str;
-    return str;
-  }
-
-  download(){
-    const a = document.createElement('a');
-    a.textContent = 'download';
-    a.download = 'filename';
-    var data = this.toCSV(this.state.myTableData);
-    a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(data);
-    a.click();
+    else {
+      current[column] = ASC;
+    }
+    
+    this.setState({sortDir: current});
   }
 
   render() {
-    var {sortedDataList, colSortDirs} = this.state;
-
-    const columns = this.props.columns.map((column) =>
-      <Column
-        key={column.id}
-        columnKey={column.id} 
-        header={
-          <SortHeaderCell
-            onSortChange={this._onSortChange}
-            sortDir={column.id}>
-            {column.name}
-          </SortHeaderCell>
-        }
-        cell={
-          <TextCell
-            data={this.state.myTableData}
-            field={column.id}
-          />
-        }
-        width={200}
-      />
-    );
-
+    const { data, columns, ...props } = this.props;
     return (
-      <div>
-
-        <button onClick={this.download}> Download </button>
-
-        <Table
-          rowsCount={this.state.myTableData.length}
-          rowHeight={50}
-          headerHeight={50}
-          width={1000}
-          height={500}
-          {...this.props}>
-
-            {columns}
-
-        </Table>
-      </div>
+      <Table {...props}>
+      {columns.map((column) => 
+                   <Column
+                     key={column.id}
+                     columnKey={column.id} 
+                     header={
+                       <Header
+                         onClick={this.handleSort}
+                         sortDir={this.state.sortDir[column.id]}>
+                         {column.name}
+                       </Header>
+                     }
+                     cell={props => (
+                       <Cell {...props}>
+                         {data[props.rowIndex][column.id]}
+                       </Cell>
+                     )
+                     }
+                     width={200}
+                   />
+                  )
+      }
+      </Table>
     );
   }
 }
 
-export default MyTable;
+// See https://facebook.github.io/react/docs/typechecking-with-proptypes.html
+FlyBaseDataGrid.propTypes = {
+  data: PropTypes.array.isRequired,
+  columns: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+  }),
+  ).isRequired,
+  rowsCount: PropTypes.number.isRequired,
+  rowHeight: PropTypes.number,
+  headerHeight: PropTypes.number,
+  width: PropTypes.number,
+  height: PropTypes.number,
+};
+
+FlyBaseDataGrid.defaultProps = {
+  rowHeight: 50,
+  headerHeight: 50,
+  width: 1000,
+  height: 500,
+};
+
+export default FlyBaseDataGrid;
