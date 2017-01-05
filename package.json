@@ -21,7 +21,8 @@
   },
   "dependencies": {
     "faker": "^3.1.0",
-    "fixed-data-table": "^0.6.3"
+    "fixed-data-table": "^0.6.3",
+    "underscore": "^1.8.3"
   },
   "peerDependencies": {
     "react": "15.x"
