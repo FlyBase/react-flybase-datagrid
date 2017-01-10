@@ -35,7 +35,7 @@ let Demo = React.createClass({
   render() {
     return <div>
     <h1>datagrid1</h1>
-    <Component data={data} columns={getHeaders()} rowsCount={data.length} />
+    <Component data={data} columns={getHeaders()} />
     </div>
   }
 })

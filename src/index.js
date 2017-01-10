@@ -105,7 +105,7 @@ class FlyBaseDataGrid extends Component {
         <Filter value={this.state.filter} onChange={this.handleFilter} />
 
      
-          <Table {...props}>
+          <Table rowsCount={items.length} {...props}>
             {columns.map((column) => 
                      <Column
                        key={column.id}
@@ -147,7 +147,6 @@ FlyBaseDataGrid.propTypes = {
       name: PropTypes.string,
   }),
   ).isRequired,
-  rowsCount: PropTypes.number.isRequired,
   rowHeight: PropTypes.number,
   headerHeight: PropTypes.number,
   width: PropTypes.number,
