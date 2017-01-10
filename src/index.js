@@ -33,7 +33,7 @@ class FlyBaseDataGrid extends Component {
     // Implement filter logic here by expanding the callback inside the filter.
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
  
-    function foo(item){
+    function isRowMatch(item){
 
       for(var key in item){
         var value = item[key];
@@ -45,7 +45,7 @@ class FlyBaseDataGrid extends Component {
         return false;
     }
 
-    const filteredItems = temp.filter((item) => { return foo(item); });
+    const filteredItems = temp.filter((item) => { return isRowMatch(item); });
 
     if (!filteredItems.length){
        filteredItems.push({ id: "", name: "", address: "", state: "", zip: ""});
