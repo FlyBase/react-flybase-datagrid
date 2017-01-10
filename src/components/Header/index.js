@@ -16,7 +16,7 @@ function renderArrow(direction) {
 function Header(props) {
   const { columnKey, height, width, children, onClick, sortDir } = props;
 
-  function handleOnClick(e) {
+  function handleOnClick() {
     onClick(columnKey);
   }
 
