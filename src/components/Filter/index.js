@@ -5,18 +5,15 @@ function Filter(props) {
   const { value, onChange } = props;
 
   return (
-    <input onChange={onChange} placeholder="Filter by First Name" />
+    <input onChange={onChange} placeholder={'Enter filter text...'} />
   );
 }
 
 // See https://facebook.github.io/react/docs/typechecking-with-proptypes.html
 
-// Filter.propTypes = {
-//   onClick: PropTypes.func,
-// };
-
-// Header.defaultProps = {
-//   sortDir: NONE,
-// };
+ Filter.propTypes = {
+  onChange: PropTypes.func,
+  placeholder: PropTypes.string,
+ };
 
 export default Filter;
