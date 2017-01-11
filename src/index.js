@@ -51,9 +51,6 @@ class FlyBaseDataGrid extends Component {
        filteredItems.push({ id: "", name: "", address: "", state: "", zip: ""});
     }
 
-    // console.debug(filterText);
-    // console.debug(filteredItems);
-
     this.setState({ 
       items: filteredItems,
       filter: filterText
@@ -100,11 +97,10 @@ class FlyBaseDataGrid extends Component {
          { showFilter && <Filter value={this.state.filter} onChange={this.handleFilter} /> }
       */}
 
-        <Download items={items} type={"csv"}></Download>
+        <Download items={items}></Download>
 
-        <Filter value={this.state.filter} onChange={this.handleFilter} />
+        {showFilter && <Filter value={this.state.filter} onChange={this.handleFilter} /> }
 
-     
           <Table rowsCount={items.length} {...props}>
             {columns.map((column) => 
                      <Column
