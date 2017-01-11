@@ -26,13 +26,38 @@ function Download(props) {
  // console.debug(type);
 
 
- function download(){
-  const a = document.createElement('a');
-  a.textContent = 'download';
-  a.download = 'filename';
-  var data = toCSV(items);
-  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(data);
-  a.click();
+//  function download(){
+//   var a = document.createElement('a');
+//   a.textContent = 'download';
+
+//   var data = toCSV(items);
+//   a.href = 'data:attachment/csv,filename=downloadme.csv;charset=utf-8,' + encodeURIComponent(data);
+//   a.download = 'filename.csv'; 
+//   a.click();
+// }
+
+function download() {
+    var filename = 'filename.csv';
+    var data = toCSV(items);
+    var blob = new Blob([data], {type: 'text/csv'});
+    if (typeof window.navigator.msSaveBlob !== 'undefined') {
+        // IE workaround for "HTML7007: One or more blob URLs were 
+        // revoked by closing the blob for which they were created. 
+        // These URLs will no longer resolve as the data backing 
+        // the URL has been freed."
+        window.navigator.msSaveBlob(blob, filename);
+    }
+    else {
+        var csvURL = window.URL.createObjectURL(blob);
+        var tempLink = document.createElement('a');
+        tempLink.href = csvURL;
+        // tempLink.href = encodeURIComponent(data);
+        tempLink.setAttribute('download', filename);
+        tempLink.setAttribute('target', '_blank');
+        document.body.appendChild(tempLink);
+        tempLink.click();
+        document.body.removeChild(tempLink);
+    }
 }
 
 return (
