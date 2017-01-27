@@ -1,11 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import FixedDataTable, { Table, Column, Cell } from 'fixed-data-table';
+import FixedDataTable, { Table, Column, Cell } from 'fixed-data-table-2';
 import _ from 'underscore';
 
 import { ASC, DESC, NONE } from './constants';
 import Header from './components/Header';
 import Download from './components/Download';
 import Filter from './components/Filter';
+import debug from 'debug'
+
 
 class FlyBaseDataGrid extends Component {
   constructor(props) {
@@ -96,18 +98,25 @@ class FlyBaseDataGrid extends Component {
          e.g.
          { showFilter && <Filter value={this.state.filter} onChange={this.handleFilter} /> }
       */}
+{
+        // <Download items={items}></Download>
+}
+        {
+          // showFilter && <Filter value={this.state.filter} onChange={this.handleFilter} /> 
+        }
 
-        <Download items={items}></Download>
-
-        {showFilter && <Filter value={this.state.filter} onChange={this.handleFilter} /> }
-
-          <Table rowsCount={items.length} {...props}>
+          <Table className="table" rowsCount={items.length} {...props}>
             {columns.map((column) => 
                      <Column
+                       allowCellsRecycling={true}
                        key={column.id}
                        columnKey={column.id} 
+                  
+              
                        header={
                          <Header
+                         //  headerClassName='foo'
+                          className="field_label"
                            onClick={this.handleSort}
                            sortDir={this.state.sortDir[column.id]}>
 
@@ -115,6 +124,7 @@ class FlyBaseDataGrid extends Component {
                          
                          </Header>
                        }
+
                      
                        cell={props => (
                          <Cell {...props}>
@@ -133,6 +143,7 @@ class FlyBaseDataGrid extends Component {
     );
   }
 }
+
 
 // See https://facebook.github.io/react/docs/typechecking-with-proptypes.html
 FlyBaseDataGrid.propTypes = {

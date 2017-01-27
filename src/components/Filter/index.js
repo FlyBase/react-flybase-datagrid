@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Cell } from 'fixed-data-table';
+import { Cell } from 'fixed-data-table-2';
 
 function Filter(props) {
   const { value, onChange } = props;
