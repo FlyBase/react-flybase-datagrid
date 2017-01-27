@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Cell } from 'fixed-data-table';
+import { Cell } from 'fixed-data-table-2';
 import { ASC, DESC, NONE } from '../../constants';
 
 function renderArrow(direction) {
@@ -21,7 +21,7 @@ function Header(props) {
   }
 
   return (
-    <Cell onClick={handleOnClick}>
+    <Cell className="field_label" onClick={handleOnClick}>
       {children} {renderArrow(sortDir)}
     </Cell>
   );

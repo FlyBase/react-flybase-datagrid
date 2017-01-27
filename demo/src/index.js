@@ -1,10 +1,11 @@
 import React from 'react'
 import {render} from 'react-dom'
-import '../../dist/fixed-data-table.css';
-import '../../dist/bootstrap/css/bootstrap.css';
+
+import '../../dist/fixed-data-table.css'
+import '../../dist/custom.css';
+
 import Component from '../../src'
 import faker from 'faker';
-
 
 function getHeaders(){
 
