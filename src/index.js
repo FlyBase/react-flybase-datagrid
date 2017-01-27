@@ -2,6 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import FixedDataTable, { Table, Column, Cell } from 'fixed-data-table-2';
 import _ from 'underscore';
 
+import '../../dist/fixed-data-table.css'
+import '../../dist/custom.css';
+
 import { ASC, DESC, NONE } from './constants';
 import Header from './components/Header';
 import Download from './components/Download';
