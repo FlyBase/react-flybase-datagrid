@@ -98,11 +98,13 @@ class FlyBaseDataGrid extends Component {
          e.g.
          { showFilter && <Filter value={this.state.filter} onChange={this.handleFilter} /> }
       */}
-{
-        // <Download items={items}></Download>
-}
+        
         {
-          // showFilter && <Filter value={this.state.filter} onChange={this.handleFilter} /> 
+          <Download items={items}></Download>
+        }
+       
+        {
+          showFilter && <Filter value={this.state.filter} onChange={this.handleFilter} /> 
         }
 
           <Table className="table" rowsCount={items.length} {...props}>
