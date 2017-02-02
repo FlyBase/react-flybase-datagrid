@@ -95,13 +95,7 @@ class FlyBaseDataGrid extends Component {
 
     return (
       <div>
-      {/*
-         Add filter box here.  Start with one input box that filters all columns.
-         The filter box should be a custom component.
-         e.g.
-         { showFilter && <Filter value={this.state.filter} onChange={this.handleFilter} /> }
-      */}
-        
+      
         {
           <Download items={items}></Download>
         }
