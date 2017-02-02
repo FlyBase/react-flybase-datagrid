@@ -114,7 +114,6 @@ class FlyBaseDataGrid extends Component {
               
                        header={
                          <Header
-                         //  headerClassName='foo'
                           className="field_label"
                            onClick={this.handleSort}
                            sortDir={this.state.sortDir[column.id]}>
