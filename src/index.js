@@ -97,7 +97,7 @@ class FlyBaseDataGrid extends Component {
       <div>
       
         {
-          <Download items={items}></Download>
+          <Download items={items}/>
         }
        
         {
