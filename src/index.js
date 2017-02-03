@@ -110,19 +110,15 @@ class FlyBaseDataGrid extends Component {
                        allowCellsRecycling={true}
                        key={column.id}
                        columnKey={column.id} 
-                  
               
                        header={
                          <Header
-                          className="field_label"
+                           dataKey={column.name}
+                           className="field_label"
                            onClick={this.handleSort}
                            sortDir={this.state.sortDir[column.id]}>
-
-                           {column.name}
-                         
                          </Header>
                        }
-
                      
                        cell={props => (
                          <Cell {...props}>
