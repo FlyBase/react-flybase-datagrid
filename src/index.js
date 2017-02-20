@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import FixedDataTable, { Table, Column, Cell } from 'fixed-data-table-2';
 import _ from 'underscore';
 
-import '../dist/fixed-data-table.css'
+import '../dist/fixed-data-table.css';
 import '../dist/custom.css';
 
 import { ASC, DESC, NONE } from './constants';
@@ -31,13 +31,13 @@ class FlyBaseDataGrid extends Component {
   }
 
   handleFilter(e) {
-    
+
     const filterText = e.target.value.toLowerCase();
     const temp = this.props.data;
-  
+
     // Implement filter logic here by expanding the callback inside the filter.
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
- 
+
     function isRowMatch(item){
 
       for(var key in item){
@@ -56,7 +56,7 @@ class FlyBaseDataGrid extends Component {
        filteredItems.push({ id: "", name: "", address: "", state: "", zip: ""});
     }
 
-    this.setState({ 
+    this.setState({
       items: filteredItems,
       filter: filterText
     });
@@ -81,7 +81,7 @@ class FlyBaseDataGrid extends Component {
     else {
       current[column] = ASC;
     }
-    
+
     // Set state with new sorted order.
     this.setState({
       sortDir: current,
@@ -95,23 +95,23 @@ class FlyBaseDataGrid extends Component {
 
     return (
       <div>
-      
+
         {
           <Download items={items}/>
         }
-       
+
         {
-          showFilter && <Filter value={this.state.filter} onChange={this.handleFilter} /> 
+          showFilter && <Filter value={this.state.filter} onChange={this.handleFilter} />
         }
 
           <Table className="table" rowsCount={items.length} {...props}>
-            {columns.map((column) => 
+            {columns.map((column) =>
                      <Column
                        allowCellsRecycling={true}
                        key={column.id}
-                       columnKey={column.id} 
-                  
-              
+                       columnKey={column.id}
+
+
                        header={
                          <Header
                           className="field_label"
@@ -119,24 +119,24 @@ class FlyBaseDataGrid extends Component {
                            sortDir={this.state.sortDir[column.id]}>
 
                            {column.name}
-                         
+
                          </Header>
                        }
 
-                     
+
                        cell={props => (
                          <Cell {...props}>
                            {items[props.rowIndex][column.id]}
                          </Cell>
                        )
                        }
-                       
+
                        width={200}
                      />
                     )
             }
-          </Table> 
-      
+          </Table>
+
       </div>
     );
   }
