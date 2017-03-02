@@ -90,7 +90,7 @@ class FlyBaseDataGrid extends Component {
   }
 
   render() {
-    const { data, columns, showFilter, ...props } = this.props;
+    const { columns, data, showFilter, ...props } = this.props;
     const { items } = this.state;
 
     return (
