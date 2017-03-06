@@ -2,7 +2,7 @@ import React from 'react'
 import {render} from 'react-dom'
 
 import Component from '../../src'
-import faker from 'faker';
+import faker from 'faker'
 
 function getHeaders(){
 
