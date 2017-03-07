@@ -2,15 +2,14 @@ import React, { Component, PropTypes } from 'react';
 import FixedDataTable, { Table, Column, Cell } from 'fixed-data-table-2';
 import _ from 'underscore';
 
-import '../dist/fixed-data-table.css';
-import '../dist/custom.css';
+// import '../dist/fixed-data-table.css';
+import '../dist/agr.css';
 
 import { ASC, DESC, NONE } from './constants';
 import Header from './components/Header';
 import Download from './components/Download';
 import Filter from './components/Filter';
 import debug from 'debug'
-
 
 class FlyBaseDataGrid extends Component {
   constructor(props) {
@@ -90,21 +89,21 @@ class FlyBaseDataGrid extends Component {
   }
 
   render() {
-    const { columns, data, showFilter, ...props } = this.props;
+    const { columns, data, showFilter, showDownloadButton, ...props } = this.props;
     const { items } = this.state;
 
     return (
       <div>
 
         {
-          <Download items={items}/>
+          showDownloadButton && <Download items={items}/>
         }
 
         {
           showFilter && <Filter value={this.state.filter} onChange={this.handleFilter} />
         }
 
-          <Table className="table" rowsCount={items.length} {...props}>
+          <Table rowsCount={items.length} {...props}>
             {columns.map((column) =>
                      <Column
                        allowCellsRecycling={true}
@@ -114,7 +113,7 @@ class FlyBaseDataGrid extends Component {
 
                        header={
                          <Header
-                          className="field_label"
+                           className="field_label"
                            onClick={this.handleSort}
                            sortDir={this.state.sortDir[column.id]}>
 
@@ -157,6 +156,7 @@ FlyBaseDataGrid.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   showFilter: PropTypes.bool,
+  showDownloadButton: PropTypes.bool,
 };
 
 FlyBaseDataGrid.defaultProps = {
