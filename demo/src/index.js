@@ -3,7 +3,6 @@ import {render} from 'react-dom'
 
 import Component from '../../src'
 import faker from 'faker'
-import { StyleSheet, css } from 'aphrodite';
 
 function getHeaders(){
 
