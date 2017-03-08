@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import FixedDataTable, { Table, Column, Cell } from 'fixed-data-table-2';
+import { Table, Column, Cell } from 'fixed-data-table-2';
 import _ from 'underscore';
 
 import '../dist/fixed-data-table.css';
@@ -96,20 +96,22 @@ class FlyBaseDataGrid extends Component {
       <div>
 
         {
-          showDownloadButton && <Download items={items}/>
+          showDownloadButton && <Download items={items} />
         }
 
         {
           showFilter && <Filter value={this.state.filter} onChange={this.handleFilter} />
         }
 
-          <Table rowsCount={items.length} {...props}>
+          <Table height={40000} rowsCount={items.length} {...props}>
+
             {columns.map((column) =>
                      <Column
+                      
+                       width={200}
                        allowCellsRecycling={true}
                        key={column.id}
                        columnKey={column.id}
-
 
                        header={
                          <Header
@@ -122,15 +124,12 @@ class FlyBaseDataGrid extends Component {
                          </Header>
                        }
 
-
                        cell={props => (
                          <Cell {...props}>
                            {items[props.rowIndex][column.id]}
                          </Cell>
                        )
                        }
-
-                       width={200}
                      />
                     )
             }
@@ -165,6 +164,7 @@ FlyBaseDataGrid.defaultProps = {
   width: 1000,
   height: 500,
   showFilter: false,
+  showDownloadButton: false,
 };
 
 export default FlyBaseDataGrid;
