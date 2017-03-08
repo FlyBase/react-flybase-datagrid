@@ -5,7 +5,9 @@ module.exports = {
     umd: {
       global: 'FlybaseDataGrid',
       externals: {
-        react: 'React'
+        react: 'React',
+        react-dom: 'ReactDom',    
+        faker: 'faker'
       }
     }
   }
