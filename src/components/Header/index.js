@@ -21,7 +21,7 @@ function Header(props) {
   }
 
   return (
-    <Cell className="field_label" onClick={handleOnClick}>
+    <Cell onClick={handleOnClick}>
       {children} {renderArrow(sortDir)}
     </Cell>
   );

@@ -2,14 +2,15 @@ import React, { Component, PropTypes } from 'react';
 import { Table, Column, Cell } from 'fixed-data-table-2';
 import _ from 'underscore';
 
-import '../dist/fixed-data-table.css';
-// import '../dist/agr.css';
+//import '../dist/fixed-data-table.css';
+//import '../dist/agr.css';
 
 import { ASC, DESC, NONE } from './constants';
 import Header from './components/Header';
 import Download from './components/Download';
 import Filter from './components/Filter';
-import debug from 'debug'
+import debug from 'debug';
+import {Stylesheet, css} from 'aphrodite';
 
 class FlyBaseDataGrid extends Component {
   constructor(props) {
@@ -89,8 +90,9 @@ class FlyBaseDataGrid extends Component {
   }
 
   render() {
-    const { columns, data, showFilter, showDownloadButton, ...props } = this.props;
+    const { columns, data, showDownloadButton, showFilter, style, ...props } = this.props;
     const { items } = this.state;
+
 
     return (
       <div>
@@ -103,19 +105,19 @@ class FlyBaseDataGrid extends Component {
           showFilter && <Filter value={this.state.filter} onChange={this.handleFilter} />
         }
 
-          <Table height={40000} rowsCount={items.length} {...props}>
+          <Table height={1000} rowsCount={items.length} {...props}>
 
             {columns.map((column) =>
                      <Column
                       
                        width={200}
-                       allowCellsRecycling={true}
+                       allowCellsRecycling={false}
                        key={column.id}
                        columnKey={column.id}
 
                        header={
                          <Header
-                           className="field_label"
+                           className={css(style.field_label)}
                            onClick={this.handleSort}
                            sortDir={this.state.sortDir[column.id]}>
 
@@ -140,7 +142,6 @@ class FlyBaseDataGrid extends Component {
   }
 }
 
-
 // See https://facebook.github.io/react/docs/typechecking-with-proptypes.html
 FlyBaseDataGrid.propTypes = {
   data: PropTypes.array.isRequired,
@@ -156,6 +157,7 @@ FlyBaseDataGrid.propTypes = {
   height: PropTypes.number,
   showFilter: PropTypes.bool,
   showDownloadButton: PropTypes.bool,
+ // style: PropTypes.Stylesheet,
 };
 
 FlyBaseDataGrid.defaultProps = {
