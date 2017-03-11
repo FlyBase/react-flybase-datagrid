@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Cell } from 'fixed-data-table-2';
 import { ASC, DESC, NONE } from '../../constants';
-import Filter from './components/Filter';
 
 function renderArrow(direction) {
   switch(direction) {
@@ -15,17 +14,15 @@ function renderArrow(direction) {
 }
 
 function Header(props) {
-  const { dataKey, height, width, children, onClick, sortDir } = props;
+  const { columnKey, height, width, children, onClick, sortDir } = props;
 
   function handleOnClick() {
     onClick(columnKey);
   }
 
   return (
-    <Cell className="field_label" onClick={handleOnClick} >
-      {children} {renderArrow(sortDir)} {dataKey}
-      <br/>
-      <Filter onChange={alert('adsf')}/>
+    <Cell onClick={handleOnClick}>
+      {children} {renderArrow(sortDir)}
     </Cell>
   );
 }
