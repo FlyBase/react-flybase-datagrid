@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { Table, Column, Cell } from 'fixed-data-table-2';
 import _ from 'underscore';
 
-import '../dist/fixed-data-table.css';
+// import '../dist/fixed-data-table.css';
+// import '../dist/agr.css';
 
 import { ASC, DESC, NONE } from './constants';
 import Header from './components/Header';
