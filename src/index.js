@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Table, Column, Cell } from 'fixed-data-table-2';
 import _ from 'underscore';
 
-// import '../dist/fixed-data-table.css';
+import '../dist/fixed-data-table.css';
 // import '../dist/agr.css';
 
 import { ASC, DESC, NONE } from './constants';
@@ -10,7 +10,6 @@ import Header from './components/Header';
 import Download from './components/Download';
 import Filter from './components/Filter';
 import debug from 'debug';
-import {Stylesheet, css} from 'aphrodite';
 
 class FlyBaseDataGrid extends Component {
   constructor(props) {
@@ -90,7 +89,7 @@ class FlyBaseDataGrid extends Component {
   }
 
   render() {
-    const { columns, data, showDownloadButton, showFilter, style, ...props } = this.props;
+    const { columns, data, showDownloadButton, showFilter, ...props } = this.props;
     const { items } = this.state;
 
 
@@ -117,7 +116,6 @@ class FlyBaseDataGrid extends Component {
 
                        header={
                          <Header
-                           className={css(style.field_label)}
                            onClick={this.handleSort}
                            sortDir={this.state.sortDir[column.id]}>
 
@@ -157,7 +155,6 @@ FlyBaseDataGrid.propTypes = {
   height: PropTypes.number,
   showFilter: PropTypes.bool,
   showDownloadButton: PropTypes.bool,
- // style: PropTypes.Stylesheet,
 };
 
 FlyBaseDataGrid.defaultProps = {
