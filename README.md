@@ -6,6 +6,15 @@ react-flybase-datagrid
 
 React Data table component using Fixed-Data-Table for Flybase.org which has sort/filter/export capabilities.
 
+#Clone the git repo.
+
+```bash
+git clone https://github.com/FlyBase/react-flybase-datagrid.git
+cd react-flybase-datagrid 
+git checkout master
+npm install
+npm run start
+
 [build-badge]: https://img.shields.io/travis/user/repo/master.png?style=flat-square
 [build]: https://travis-ci.org/user/repo
 
