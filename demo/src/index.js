@@ -3,6 +3,7 @@ import {render} from 'react-dom'
 
 import Component from '../../src'
 import faker from 'faker'
+import '../../dist/fixed-data-table.css';
 
 function getHeaders(){
 
@@ -37,6 +38,6 @@ let Demo = React.createClass({
     <Component data={data} columns={getHeaders()} showFilter={false} showDownloadButton={false} />
     </div>
   }
-})
+});
 
 render(<Demo/>, document.querySelector('#demo'))
