@@ -2,7 +2,8 @@ import React from 'react'
 import {render} from 'react-dom'
 
 import Component from '../../src'
-import faker from 'faker';
+import faker from 'faker'
+import '../../dist/fixed-data-table.css';
 
 function getHeaders(){
 
@@ -33,10 +34,10 @@ const data = generateList();
 let Demo = React.createClass({
   render() {
     return <div>
-    <h1>datagrid1</h1>
-    <Component data={data} columns={getHeaders()} showFilter={true} />
+    
+    <Component data={data} columns={getHeaders()} showFilter={false} showDownloadButton={false} />
     </div>
   }
-})
+});
 
 render(<Demo/>, document.querySelector('#demo'))

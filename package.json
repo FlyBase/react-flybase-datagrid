@@ -1,6 +1,6 @@
 {
   "name": "react-flybase-datagrid",
-  "version": "0.1.0",
+  "version": "0.5.1",
   "description": "A React data grid component for FlyBase reports.",
   "main": "lib/index.js",
   "jsnext:main": "es/index.js",
@@ -9,10 +9,11 @@
     "css",
     "es",
     "lib",
-    "umd"
+    "umd",
+    "dist/"
   ],
   "scripts": {
-    "build": "nwb build-react-component",
+    "build": "nwb build-react-component --copy-files",
     "clean": "nwb clean-module && npm clean-demo",
     "start": "nwb serve-react-demo",
     "test": "nwb test",
@@ -29,7 +30,7 @@
     "react": "15.x"
   },
   "devDependencies": {
-    "nwb": "0.12.x",
+    "nwb": ">=0.12.x",
     "react": "^15.4.1",
     "react-dom": "^15.4.1"
   },

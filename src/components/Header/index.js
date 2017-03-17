@@ -22,10 +22,8 @@ function Header(props) {
   }
 
   return (
-    <Cell className="field_label" onClick={handleOnClick} >
-      {children} {renderArrow(sortDir)} {dataKey}
-      <br/>
-      <Filter onChange={alert('adsf')}/>
+    <Cell onClick={handleOnClick}>
+      {children} {renderArrow(sortDir)}
     </Cell>
   );
 }

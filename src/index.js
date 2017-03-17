@@ -1,16 +1,15 @@
 import React, { Component, PropTypes } from 'react';
-import FixedDataTable, { Table, Column, Cell } from 'fixed-data-table-2';
+import { Table, Column, Cell } from 'fixed-data-table-2';
 import _ from 'underscore';
 
-import '../dist/fixed-data-table.css'
-import '../dist/custom.css';
+// import '../dist/fixed-data-table.css';
+// import '../dist/agr.css';
 
 import { ASC, DESC, NONE } from './constants';
 import Header from './components/Header';
 import Download from './components/Download';
 import Filter from './components/Filter';
-import debug from 'debug'
-
+import debug from 'debug';
 
 class FlyBaseDataGrid extends Component {
   constructor(props) {
@@ -31,13 +30,13 @@ class FlyBaseDataGrid extends Component {
   }
 
   handleFilter(e) {
-    
+
     const filterText = e.target.value.toLowerCase();
     const temp = this.props.data;
-  
+
     // Implement filter logic here by expanding the callback inside the filter.
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
- 
+
     function isRowMatch(item){
 
       for(var key in item){
@@ -56,7 +55,7 @@ class FlyBaseDataGrid extends Component {
        filteredItems.push({ id: "", name: "", address: "", state: "", zip: ""});
     }
 
-    this.setState({ 
+    this.setState({
       items: filteredItems,
       filter: filterText
     });
@@ -81,7 +80,7 @@ class FlyBaseDataGrid extends Component {
     else {
       current[column] = ASC;
     }
-    
+
     // Set state with new sorted order.
     this.setState({
       sortDir: current,
@@ -90,53 +89,57 @@ class FlyBaseDataGrid extends Component {
   }
 
   render() {
-    const { data, columns, showFilter, ...props } = this.props;
+    const { columns, data, showDownloadButton, showFilter, ...props } = this.props;
     const { items } = this.state;
+
 
     return (
       <div>
-      
+
         {
-          <Download items={items}></Download>
-        }
-       
-        {
-          showFilter && <Filter value={this.state.filter} onChange={this.handleFilter} /> 
+          showDownloadButton && <Download items={items} />
         }
 
-          <Table className="table" rowsCount={items.length} {...props}>
-            {columns.map((column) => 
+        {
+          showFilter && <Filter value={this.state.filter} onChange={this.handleFilter} />
+        }
+
+          <Table height={1000} rowsCount={items.length} {...props}>
+
+            {columns.map((column) =>
                      <Column
-                       allowCellsRecycling={true}
+                      
+                       width={200}
+                       allowCellsRecycling={false}
                        key={column.id}
-                       columnKey={column.id} 
-              
+
+                       columnKey={column.id}
+
                        header={
                          <Header
-                           dataKey={column.name}
                            onClick={this.handleSort}
                            sortDir={this.state.sortDir[column.id]}>
+
+                           {column.name}
+
                          </Header>
                        }
-                     
+
                        cell={props => (
                          <Cell {...props}>
                            {items[props.rowIndex][column.id]}
                          </Cell>
                        )
                        }
-                       
-                       width={200}
                      />
                     )
             }
-          </Table> 
-      
+          </Table>
+
       </div>
     );
   }
 }
-
 
 // See https://facebook.github.io/react/docs/typechecking-with-proptypes.html
 FlyBaseDataGrid.propTypes = {
@@ -152,6 +155,7 @@ FlyBaseDataGrid.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   showFilter: PropTypes.bool,
+  showDownloadButton: PropTypes.bool,
 };
 
 FlyBaseDataGrid.defaultProps = {
@@ -160,6 +164,7 @@ FlyBaseDataGrid.defaultProps = {
   width: 1000,
   height: 500,
   showFilter: false,
+  showDownloadButton: false,
 };
 
 export default FlyBaseDataGrid;
