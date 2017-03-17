@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Cell } from 'fixed-data-table-2';
 import { ASC, DESC, NONE } from '../../constants';
-import Filter from './components/Filter';
+import Filter from '../Filter';
 
 function renderArrow(direction) {
   switch(direction) {
