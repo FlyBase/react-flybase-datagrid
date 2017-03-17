@@ -112,6 +112,7 @@ class FlyBaseDataGrid extends Component {
                        width={200}
                        allowCellsRecycling={false}
                        key={column.id}
+
                        columnKey={column.id}
 
                        header={

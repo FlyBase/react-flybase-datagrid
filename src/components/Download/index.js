@@ -1,8 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 
-
-
-
 function Download(props) {
  const { items, type } = props;
 

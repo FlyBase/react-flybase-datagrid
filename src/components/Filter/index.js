@@ -5,7 +5,7 @@ function Filter(props) {
   const { value, onChange } = props;
 
   return (
-    <input onChange={onChange} placeholder={'Enter filter text...'} />
+    <input onChange={onChange} placeholder={''} />
   );
 }
 
