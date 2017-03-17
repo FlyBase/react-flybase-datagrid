@@ -3,7 +3,7 @@ import {render} from 'react-dom'
 
 import Component from '../../src'
 import faker from 'faker'
-// import '../../dist/fixed-data-table.css';
+import '../../dist/fixed-data-table.css';
 
 function getHeaders(){
 
