@@ -14,6 +14,7 @@ cd react-flybase-datagrid
 git checkout master
 npm install
 npm run start
+```
 
 [build-badge]: https://img.shields.io/travis/user/repo/master.png?style=flat-square
 [build]: https://travis-ci.org/user/repo
