@@ -33,10 +33,8 @@ const data = generateList();
 
 let Demo = React.createClass({
   render() {
-    return <div>
-    
-    <Component data={data} columns={getHeaders()} showFilter={false} showDownloadButton={false} />
-    </div>
+    return
+      <Component data={data} columns={getHeaders()} showFilter={false} showDownloadButton={false} />
   }
 });
 
