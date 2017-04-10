@@ -8,7 +8,7 @@ import _ from 'underscore';
 import { ASC, DESC, NONE } from './constants';
 import Header from './components/Header';
 import Download from './components/Download';
-import Filter from './components/Filter';
+import Filter from './components/ColumnFilter';
 import debug from 'debug';
 
 class FlyBaseDataGrid extends Component {
@@ -20,7 +20,8 @@ class FlyBaseDataGrid extends Component {
       filter: '',
     };
     this.handleSort   = this.handleSort.bind(this);
-    this.handleFilter = this.handleFilter.bind(this);
+    this.handleColumnFilter = this.handleColumnFilter.bind(this);
+    this.helper = this.helper.bind(this);
   }
 
   initSortCols() {
@@ -29,7 +30,7 @@ class FlyBaseDataGrid extends Component {
     return sortCols;
   }
 
-  handleFilter(e) {
+  handleColumnFilter(e) {
 
     const filterText = e.target.value.toLowerCase();
     const temp = this.props.data;
@@ -88,6 +89,16 @@ class FlyBaseDataGrid extends Component {
     });
   }
 
+  helper(){
+    if(column.id=='name'){
+      return true;
+    }
+    else{
+      return false;
+    }
+      
+ }
+
   render() {
     const { columns, data, showDownloadButton, showFilter, ...props } = this.props;
     const { items } = this.state;
@@ -98,11 +109,7 @@ class FlyBaseDataGrid extends Component {
 
         {
           showDownloadButton && <Download items={items} />
-        }
-
-        {
-          showFilter && <Filter value={this.state.filter} onChange={this.handleFilter} />
-        }
+        } 
 
           <Table height={1000} rowsCount={items.length} {...props}>
 
@@ -117,8 +124,12 @@ class FlyBaseDataGrid extends Component {
 
                        header={
                          <Header
+                           displayFilter={this.helper}
+                           onChange={this.handleColumnFilter}
                            onClick={this.handleSort}
-                           sortDir={this.state.sortDir[column.id]}>
+                           sortDir={this.state.sortDir[column.id]}
+                           value={this.state.filter}
+                          >
 
                            {column.name}
 
