@@ -36,10 +36,7 @@ class FlyBaseDataGrid extends Component {
 
       //  reset all column filter boxes to "" on focus change
       //  reset grid to default items
-     const filterText = e.target.value.toLowerCase();
-
-      console.log(column);
-      console.log(filterText);     
+     const filterText = e.target.value.toLowerCase(); 
 
       const temp = this.props.data;
 
