@@ -24,7 +24,6 @@ function Header(props) {
 
   function handleOnChange(e) {
       onChange(e, columnKey);
-      // onChange(e);
   }
 
   return (
