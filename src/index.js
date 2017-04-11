@@ -30,37 +30,42 @@ class FlyBaseDataGrid extends Component {
     return sortCols;
   }
 
-  handleColumnFilter(e) {
+   // *************************************************************
 
-    const filterText = e.target.value.toLowerCase();
-    const temp = this.props.data;
+  handleColumnFilter(e, column){
 
-    // Implement filter logic here by expanding the callback inside the filter.
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+      //  reset all column filter boxes to "" on focus change
+      //  reset grid to default items
+     const filterText = e.target.value.toLowerCase();
 
-    function isRowMatch(item){
+      console.log(column);
+      console.log(filterText);     
 
-      for(var key in item){
-        var value = item[key];
+      const temp = this.props.data;
 
-        if (value.toString().toLowerCase().indexOf(filterText)!=-1){
-          return true;
-        }
+      var value;
+      function isMatch(item){
+
+         value = item[column];
+
+        return (value.toString().toLowerCase().indexOf(filterText)!=-1);
+
       }
-        return false;
-    }
 
-    const filteredItems = temp.filter((item) => { return isRowMatch(item); });
+      const filteredItems = temp.filter((item) => { return isMatch(item); });
 
-    if (!filteredItems.length){
-       filteredItems.push({ id: "", name: "", address: "", state: "", zip: ""});
-    }
+      if (!filteredItems.length){
+         filteredItems.push({ id: "", name: "", address: "", state: "", zip: ""});
+      }
 
-    this.setState({
-      items: filteredItems,
-      filter: filterText
-    });
+     this.setState({
+       items: filteredItems,
+       filter: filterText
+      });
   }
+
+  // *************************************************************
+
 
   handleSort(column) {
     let current = this.state.sortDir;
@@ -89,14 +94,14 @@ class FlyBaseDataGrid extends Component {
     });
   }
 
+  // show the filter for the column?
   helper(){
     if(column.id=='name'){
       return true;
     }
     else{
       return false;
-    }
-      
+    }   
  }
 
   render() {
@@ -124,11 +129,11 @@ class FlyBaseDataGrid extends Component {
 
                        header={
                          <Header
+                           filterText={this.state.filter}
                            displayFilter={this.helper}
                            onChange={this.handleColumnFilter}
                            onClick={this.handleSort}
                            sortDir={this.state.sortDir[column.id]}
-                           value={this.state.filter}
                           >
 
                            {column.name}

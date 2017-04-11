@@ -16,10 +16,15 @@ function renderArrow(direction) {
 
 function Header(props) {
 
-  const { columnKey, height, width, children, onClick, sortDir, value, onChange, displayFilter } = props;
+  const { columnKey, height, width, children, onClick, sortDir, value, onChange, filter, displayFilter, filterText } = props;
 
   function handleOnClick() {
     onClick(columnKey);
+  }
+
+  function handleOnChange(e) {
+      onChange(e, columnKey);
+      // onChange(e);
   }
 
   return (
@@ -29,8 +34,9 @@ function Header(props) {
       </Cell>
 
       {
-        displayFilter && <ColumnFilter value={value} onChange={onChange} />
+        displayFilter && <ColumnFilter value={filter} onChange={handleOnChange} />
       }
+
     </div>
   );
 }
