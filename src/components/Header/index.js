@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Cell } from 'fixed-data-table-2';
 import { ASC, DESC, NONE } from '../../constants';
+import ColumnFilter from '../ColumnFilter';
 
 function renderArrow(direction) {
   switch(direction) {
@@ -14,16 +15,28 @@ function renderArrow(direction) {
 }
 
 function Header(props) {
-  const { columnKey, height, width, children, onClick, sortDir } = props;
+
+  const { columnKey, height, width, children, onClick, sortDir, value, onChange, filter, displayFilter, filterText } = props;
 
   function handleOnClick() {
     onClick(columnKey);
   }
 
+  function handleOnChange(e) {
+      onChange(e, columnKey);
+  }
+
   return (
-    <Cell onClick={handleOnClick}>
-      {children} {renderArrow(sortDir)}
-    </Cell>
+    <div>
+      <Cell onClick={handleOnClick}>
+        {children} {renderArrow(sortDir)}
+      </Cell>
+
+      {
+        displayFilter && <ColumnFilter value={filter} onChange={handleOnChange} />
+      }
+
+    </div>
   );
 }
 
@@ -36,6 +49,7 @@ Header.propTypes = {
   width: PropTypes.number,
   sortDir: PropTypes.oneOf([ASC, DESC, NONE]),
   onClick: PropTypes.func,
+  displayFilter: PropTypes.any.isRequired,
 };
 
 Header.defaultProps = {
