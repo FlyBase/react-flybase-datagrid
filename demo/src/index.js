@@ -35,7 +35,7 @@ let Demo = React.createClass({
   render() {
     return <div>
     
-    <Component data={data} columns={getHeaders()} showFilter={false} showDownloadButton={false} />
+    <Component data={data} columns={getHeaders()} showColumnFilter={true} showDownloadButton={true} />
     </div>
   }
 });

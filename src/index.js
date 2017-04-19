@@ -102,7 +102,7 @@ class FlyBaseDataGrid extends Component {
  }
 
   render() {
-    const { columns, data, showDownloadButton, showFilter, ...props } = this.props;
+    const { columns, data, showDownloadButton, showColumnFilter, ...props } = this.props;
     const { items } = this.state;
 
 
@@ -127,7 +127,7 @@ class FlyBaseDataGrid extends Component {
                        header={
                          <Header
                            filterText={this.state.filter}
-                           displayFilter={this.helper}
+                           displayFilter={showColumnFilter}
                            onChange={this.handleColumnFilter}
                            onClick={this.handleSort}
                            sortDir={this.state.sortDir[column.id]}
