@@ -8,7 +8,7 @@ import _ from 'underscore';
 import { ASC, DESC, NONE } from './constants';
 import Header from './components/Header';
 import Download from './components/Download';
-import Filter from './components/Filter';
+import Filter from './components/ColumnFilter';
 import debug from 'debug';
 
 class FlyBaseDataGrid extends Component {
@@ -20,7 +20,8 @@ class FlyBaseDataGrid extends Component {
       filter: '',
     };
     this.handleSort   = this.handleSort.bind(this);
-    this.handleFilter = this.handleFilter.bind(this);
+    this.handleColumnFilter = this.handleColumnFilter.bind(this);
+    this.helper = this.helper.bind(this);
   }
 
   initSortCols() {
@@ -29,37 +30,39 @@ class FlyBaseDataGrid extends Component {
     return sortCols;
   }
 
-  handleFilter(e) {
+   // *************************************************************
 
-    const filterText = e.target.value.toLowerCase();
-    const temp = this.props.data;
+  handleColumnFilter(e, column){
 
-    // Implement filter logic here by expanding the callback inside the filter.
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+      //  reset all column filter boxes to "" on focus change
+      //  reset grid to default items
+     const filterText = e.target.value.toLowerCase(); 
 
-    function isRowMatch(item){
+      const temp = this.props.data;
 
-      for(var key in item){
-        var value = item[key];
+      var value;
+      function isMatch(item){
 
-        if (value.toString().toLowerCase().indexOf(filterText)!=-1){
-          return true;
-        }
+         value = item[column];
+
+        return (value.toString().toLowerCase().indexOf(filterText)!=-1);
+
       }
-        return false;
-    }
 
-    const filteredItems = temp.filter((item) => { return isRowMatch(item); });
+      const filteredItems = temp.filter((item) => { return isMatch(item); });
 
-    if (!filteredItems.length){
-       filteredItems.push({ id: "", name: "", address: "", state: "", zip: ""});
-    }
+      if (!filteredItems.length){
+         filteredItems.push({ id: "", name: "", address: "", state: "", zip: ""});
+      }
 
-    this.setState({
-      items: filteredItems,
-      filter: filterText
-    });
+     this.setState({
+       items: filteredItems,
+       filter: filterText
+      });
   }
+
+  // *************************************************************
+
 
   handleSort(column) {
     let current = this.state.sortDir;
@@ -88,8 +91,18 @@ class FlyBaseDataGrid extends Component {
     });
   }
 
+  // show the filter for the column?
+  helper(){
+    if(column.id=='name'){
+      return true;
+    }
+    else{
+      return false;
+    }   
+ }
+
   render() {
-    const { columns, data, showDownloadButton, showFilter, ...props } = this.props;
+    const { columns, data, showDownloadButton, showColumnFilter, ...props } = this.props;
     const { items } = this.state;
 
 
@@ -98,11 +111,7 @@ class FlyBaseDataGrid extends Component {
 
         {
           showDownloadButton && <Download items={items} />
-        }
-
-        {
-          showFilter && <Filter value={this.state.filter} onChange={this.handleFilter} />
-        }
+        } 
 
           <Table height={1000} rowsCount={items.length} {...props}>
 
@@ -117,8 +126,12 @@ class FlyBaseDataGrid extends Component {
 
                        header={
                          <Header
+                           filterText={this.state.filter}
+                           displayFilter={showColumnFilter}
+                           onChange={this.handleColumnFilter}
                            onClick={this.handleSort}
-                           sortDir={this.state.sortDir[column.id]}>
+                           sortDir={this.state.sortDir[column.id]}
+                          >
 
                            {column.name}
 
