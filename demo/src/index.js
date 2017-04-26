@@ -11,19 +11,23 @@ function getHeaders() {
     {
       id: 'id',
       name: 'ID'
-    }, {
+    }, 
+    {
       id: 'name',
       name: 'Name',
       render: (name, row) => (
         <a href={`https://duckduckgo.com/?q=${name} ${row['zip']}`} target='_blank'>{name}</a> 
       )
-    }, {
+    }, 
+    {
       id: 'address',
       name: 'Street Address'
-    }, {
+    }, 
+    {
       id: 'state',
       name: 'State'
-    }, {
+    }, 
+    {
       id: 'zip',
       name: 'Zip Code'
     }
