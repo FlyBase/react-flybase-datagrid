@@ -138,11 +138,19 @@ class FlyBaseDataGrid extends Component {
                          </Header>
                        }
 
-                       cell={props => (
-                         <Cell {...props}>
-                           {items[props.rowIndex][column.id]}
-                         </Cell>
-                       )
+                       cell={
+                         (props) => {
+                           const row = items[props.rowIndex];
+                           let text = row[column.id];
+                           if (column.render) {
+                             text = column.render(text, row, column.id);
+                           }
+                           return (
+                             <Cell {...props}>
+                               {text}
+                             </Cell>
+                           )
+                         }
                        }
                      />
                     )

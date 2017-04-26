@@ -5,39 +5,55 @@ import Component from '../../src'
 import faker from 'faker'
 import '../../dist/fixed-data-table.css';
 
-function getHeaders(){
+function getHeaders() {
 
- var columns = [
-	 {id:'id', name:'ID'},
-	 {id:'name', name:'Name'},
-	 {id:'address', name:'Street Address'},
-	 {id:'state', name:'State'},
-	 {id:'zip', name:'Zip Code'}
- ];
+  var columns = [
+    {
+      id: 'id',
+      name: 'ID'
+    }, {
+      id: 'name',
+      name: 'Name',
+      render: (name, row) => (
+        <a href={`https://duckduckgo.com/?q=${name} ${row['zip']}`} target='_blank'>{name}</a> 
+      )
+    }, {
+      id: 'address',
+      name: 'Street Address'
+    }, {
+      id: 'state',
+      name: 'State'
+    }, {
+      id: 'zip',
+      name: 'Zip Code'
+    }
+  ];
 
- return columns;
+  return columns;
 
 }
 
-function generateList(){
+function generateList() {
   var items = [];
 
-  for (var i=1; i<=5000; i++){
-   items.push({ id: i, name: faker.name.findName(), address: faker.address.streetAddress(), state: faker.address.stateAbbr(), zip: faker.address.zipCode()});
- }
+  for (var i = 1; i <= 5000; i++) {
+    items.push({id: i, name: faker.name.findName(), address: faker.address.streetAddress(), state: faker.address.stateAbbr(), zip: faker.address.zipCode()});
+  }
 
- return items;
+  return items;
 };
 
 const data = generateList();
 
 let Demo = React.createClass({
   render() {
-    return <div>
-    
-    <Component data={data} columns={getHeaders()} showColumnFilter={true} showDownloadButton={true} />
-    </div>
+    return (
+      <div>
+        <Component data={data} columns={getHeaders()} showColumnFilter={true} showDownloadButton={true}/>
+      </div>
+    );      
   }
 });
 
-render(<Demo/>, document.querySelector('#demo'))
+render(
+  <Demo/>, document.querySelector('#demo'))
