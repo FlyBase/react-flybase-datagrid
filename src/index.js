@@ -106,8 +106,6 @@ class FlyBaseDataGrid extends Component {
     const { columns, data, showDownloadButton, showColumnFilter, ...props } = this.props;
     const { items } = this.state;
 
- alert(items.length);
-
     return (
       <div>
 
