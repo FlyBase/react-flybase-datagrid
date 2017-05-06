@@ -9,6 +9,7 @@ import { ASC, DESC, NONE } from './constants';
 import Header from './components/Header';
 import Download from './components/Download';
 import Filter from './components/ColumnFilter';
+import Dimensions from 'react-dimensions';
 import debug from 'debug';
 
 class FlyBaseDataGrid extends Component {
@@ -105,6 +106,7 @@ class FlyBaseDataGrid extends Component {
     const { columns, data, showDownloadButton, showColumnFilter, ...props } = this.props;
     const { items } = this.state;
 
+ alert(items.length);
 
     return (
       <div>
@@ -121,7 +123,7 @@ class FlyBaseDataGrid extends Component {
                        width={200}
                        allowCellsRecycling={false}
                        key={column.id}
-
+                       flexGrow={1}
                        columnKey={column.id}
 
                        header={
