@@ -1,6 +1,6 @@
 {
   "name": "react-flybase-datagrid",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "A React data grid component for FlyBase reports.",
   "main": "lib/index.js",
   "jsnext:main": "es/index.js",
