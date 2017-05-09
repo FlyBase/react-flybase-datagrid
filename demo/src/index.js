@@ -57,7 +57,7 @@ let Demo = React.createClass({
         columns={getHeaders()} 
         data={data}
         showColumnFilter
-        showDownloadButton
+        downloadButton={['tsv','csv']}
         width={1110} />
       </div>
     );      

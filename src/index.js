@@ -22,7 +22,6 @@ class FlyBaseDataGrid extends Component {
     };
     this.handleSort   = this.handleSort.bind(this);
     this.handleColumnFilter = this.handleColumnFilter.bind(this);
-    this.helper = this.helper.bind(this);
   }
 
   initSortCols() {
@@ -30,8 +29,6 @@ class FlyBaseDataGrid extends Component {
     this.props.columns.forEach((col) => sortCols[col.id] = NONE);
     return sortCols;
   }
-
-   // *************************************************************
 
   handleColumnFilter(e, column){
 
@@ -62,9 +59,6 @@ class FlyBaseDataGrid extends Component {
       });
   }
 
-  // *************************************************************
-
-
   handleSort(column) {
     let current = this.state.sortDir;
     const sortDir = current[column];
@@ -90,32 +84,22 @@ class FlyBaseDataGrid extends Component {
       sortDir: current,
       items: sortedItems,
     });
-  }
-
-  // show the filter for the column?
-  helper(){
-    if(column.id=='name'){
-      return true;
-    }
-    else{
-      return false;
-    }   
  }
 
   render() {
-    const { columns, data, showDownloadButton, showColumnFilter, ...props } = this.props;
+    const { columns, data, showColumnFilter, downloadButton, ...props } = this.props;
     const { items } = this.state;
 
     return (
       <div>
 
-        {
-          showDownloadButton && <Download items={items} />
-        } 
+        { 
+          downloadButton.map((type) => <Download key={type} type={type} items={items} /> ) 
+        }
 
           <Table height={1000} rowsCount={items.length} {...props}>
 
-            {columns.map((column) =>
+            { columns.map((column) =>
                      <Column
                       
                        width={200}
@@ -176,7 +160,6 @@ FlyBaseDataGrid.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   showFilter: PropTypes.bool,
-  showDownloadButton: PropTypes.bool,
 };
 
 FlyBaseDataGrid.defaultProps = {
@@ -185,7 +168,6 @@ FlyBaseDataGrid.defaultProps = {
   width: 1000,
   height: 500,
   showFilter: false,
-  showDownloadButton: false,
 };
 
 export default FlyBaseDataGrid;

@@ -3,30 +3,42 @@ import React, { Component, PropTypes } from 'react';
 function Download(props) {
  const { items, type } = props;
 
-    function toCSV(array){
+    function render(array, separator='\t'){
 
-      var str = '';
+      var str = Object.keys(array[0]).join(separator) + '\n';
 
        for (var i = 0; i < array.length; i++) {
         var line = '';
         for (var index in array[i]) {
-          if (line != '') line += ','
+          if (line != '') line += separator
 
-            line += array[i][index];
+            line += '"' + array[i][index] + '"';
         }
 
         str += line + '\r\n';
       }
 
-      str = Object.keys(array[0]) + '\n' + str;
-
-    return str;
+      return str;
     }
 
     function download() {
-        var filename = 'filename.csv';
-        var data = toCSV(items);
-        var blob = new Blob([data], {type: 'text/csv'});
+
+        var separator;
+        switch(props.type) {
+        case 'csv':
+          separator = ',';
+          break;
+        case 'tsv':
+          separator = '\t';
+          break;
+        }
+        
+       // var filename = 'filename.csv';
+      var filename = `filename.${props.type}`;
+
+        var data = render(items, separator);
+      
+        var blob = new Blob([data], {type: `text/${props.type}`});
         if (typeof window.navigator.msSaveBlob !== 'undefined') {
             // IE workaround for "HTML7007: One or more blob URLs were 
             // revoked by closing the blob for which they were created. 
@@ -48,9 +60,7 @@ function Download(props) {
     }
 
 return (
-
- <button onClick={download} > Download </button>
-
+ <button onClick={ download }> Download {props.type} </button>
  );
 }
 
