@@ -27,7 +27,7 @@ function Header(props) {
   }
 
   return (
-    <div>
+    <div className={'flybaseDataGrid_header'}>
       <Cell onClick={handleOnClick}>
         {children} {renderArrow(sortDir)}
       </Cell>

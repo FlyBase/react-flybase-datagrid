@@ -9,6 +9,7 @@ import { ASC, DESC, NONE } from './constants';
 import Header from './components/Header';
 import Download from './components/Download';
 import Filter from './components/ColumnFilter';
+import Dimensions from 'react-dimensions';
 import debug from 'debug';
 
 class FlyBaseDataGrid extends Component {
@@ -21,7 +22,6 @@ class FlyBaseDataGrid extends Component {
     };
     this.handleSort   = this.handleSort.bind(this);
     this.handleColumnFilter = this.handleColumnFilter.bind(this);
-    this.helper = this.helper.bind(this);
   }
 
   initSortCols() {
@@ -29,8 +29,6 @@ class FlyBaseDataGrid extends Component {
     this.props.columns.forEach((col) => sortCols[col.id] = NONE);
     return sortCols;
   }
-
-   // *************************************************************
 
   handleColumnFilter(e, column){
 
@@ -61,9 +59,6 @@ class FlyBaseDataGrid extends Component {
       });
   }
 
-  // *************************************************************
-
-
   handleSort(column) {
     let current = this.state.sortDir;
     const sortDir = current[column];
@@ -89,45 +84,34 @@ class FlyBaseDataGrid extends Component {
       sortDir: current,
       items: sortedItems,
     });
-  }
-
-  // show the filter for the column?
-  helper(){
-    if(column.id=='name'){
-      return true;
-    }
-    else{
-      return false;
-    }   
  }
 
   render() {
-    const { columns, data, showDownloadButton, showFilter, ...props } = this.props;
+    const { columns, data, showColumnFilter, downloadButton, ...props } = this.props;
     const { items } = this.state;
-
 
     return (
       <div>
 
-        {
-          showDownloadButton && <Download items={items} />
-        } 
+        { 
+          downloadButton.map((type) => <Download key={type} type={type} items={items} /> ) 
+        }
 
           <Table height={1000} rowsCount={items.length} {...props}>
 
-            {columns.map((column) =>
+            { columns.map((column) =>
                      <Column
                       
                        width={200}
                        allowCellsRecycling={false}
                        key={column.id}
-
+                       flexGrow={1}
                        columnKey={column.id}
 
                        header={
                          <Header
                            filterText={this.state.filter}
-                           displayFilter={this.helper}
+                           displayFilter={showColumnFilter}
                            onChange={this.handleColumnFilter}
                            onClick={this.handleSort}
                            sortDir={this.state.sortDir[column.id]}
@@ -138,11 +122,19 @@ class FlyBaseDataGrid extends Component {
                          </Header>
                        }
 
-                       cell={props => (
-                         <Cell {...props}>
-                           {items[props.rowIndex][column.id]}
-                         </Cell>
-                       )
+                       cell={
+                         (props) => {
+                           const row = items[props.rowIndex];
+                           let text = row[column.id];
+                           if (column.render) {
+                             text = column.render(text, row, column.id);
+                           }
+                           return (
+                             <Cell {...props}>
+                               {text}
+                             </Cell>
+                           )
+                         }
                        }
                      />
                     )
@@ -168,7 +160,6 @@ FlyBaseDataGrid.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   showFilter: PropTypes.bool,
-  showDownloadButton: PropTypes.bool,
 };
 
 FlyBaseDataGrid.defaultProps = {
@@ -177,7 +168,6 @@ FlyBaseDataGrid.defaultProps = {
   width: 1000,
   height: 500,
   showFilter: false,
-  showDownloadButton: false,
 };
 
 export default FlyBaseDataGrid;

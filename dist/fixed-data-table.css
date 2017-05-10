@@ -507,3 +507,7 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main {
 .public_Scrollbar_faceActive:after {
   background-color: #7d7d7d;
 }
+
+.public_fixedDataTableCell_cellContent {
+  padding: 1px;
+}
