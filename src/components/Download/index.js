@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 function Download(props) {
  const { items, type } = props;
+ console.debug(props);
 
     function render(array, separator='\t'){
 
@@ -32,9 +33,8 @@ function Download(props) {
           separator = '\t';
           break;
         }
-        
-       // var filename = 'filename.csv';
-      var filename = `filename.${props.type}`;
+
+        var filename = `filename.${props.type}`;
 
         var data = render(items, separator);
       
@@ -60,7 +60,7 @@ function Download(props) {
     }
 
 return (
- <button onClick={ download }> Download {props.type} </button>
+ <button className={props.className} onClick={download}> Download {props.type} </button>
  );
 }
 

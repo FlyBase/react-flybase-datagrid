@@ -90,12 +90,14 @@ class FlyBaseDataGrid extends Component {
     const { columns, data, showColumnFilter, downloadButton, ...props } = this.props;
     const { items } = this.state;
 
+    const style = {
+      backgroundColor: 'blue',
+      paddingLeft: 0,
+      listStyle: 'none'
+    };
+
     return (
       <div>
-
-        { 
-          downloadButton.map((type) => <Download key={type} type={type} items={items} /> ) 
-        }
 
           <Table height={1000} rowsCount={items.length} {...props}>
 
@@ -140,6 +142,10 @@ class FlyBaseDataGrid extends Component {
                     )
             }
           </Table>
+
+        { 
+          downloadButton.map((type) => <Download className={'btn btn-default'} key={type} type={type} items={items} /> ) 
+        }
 
       </div>
     );
