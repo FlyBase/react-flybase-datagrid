@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 
 function Download(props) {
- const { items, type } = props;
- console.debug(props);
+ const { items, type, columns } = props;
+
 
     function render(array, separator='\t'){
 
-      var str = Object.keys(array[0]).join(separator) + '\n';
+     var str = columns.map((obj) => {return '"' + obj.name + '"';}) + '\n';
 
        for (var i = 0; i < array.length; i++) {
         var line = '';
