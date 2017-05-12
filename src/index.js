@@ -144,7 +144,7 @@ class FlyBaseDataGrid extends Component {
           </Table>
 
         { 
-          downloadButton.map((type) => <Download className={'btn btn-default'} key={type} type={type} items={items} /> ) 
+          downloadButton.map((type) => <Download columns={columns} className={'btn btn-default'} key={type} type={type} items={items} /> ) 
         }
 
       </div>

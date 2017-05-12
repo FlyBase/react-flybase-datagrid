@@ -29,7 +29,7 @@ function getHeaders() {
     }, 
     {
       id: 'zip',
-      name: 'Zip Code'
+      name: 'Code, Zip'
     }
   ];
 
