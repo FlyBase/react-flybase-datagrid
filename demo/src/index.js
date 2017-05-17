@@ -58,6 +58,7 @@ let Demo = React.createClass({
         data={data}
         showColumnFilter
         downloadButton={['tsv','csv']}
+        maxHeight={1000}
         width={1110} />
       </div>
     );      
