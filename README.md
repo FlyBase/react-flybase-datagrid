@@ -18,10 +18,11 @@ npm run start
 ## Example
 ```javascript
 import React from 'react'
-import {render} from 'react-dom'
+import FlybaseDataGrid from 'react-flybase-datagrid'
 
 class Application extends React.Component {
    render() {
+
     const columns = [
       {
         id: 'id',
@@ -49,7 +50,7 @@ class Application extends React.Component {
 
     return (
       <div>
-        <Component  
+        <FlybaseDataGrid  
         columns={columns} 
         data={items}
         showColumnFilter
