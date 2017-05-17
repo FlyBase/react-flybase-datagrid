@@ -15,6 +15,59 @@ git checkout master
 npm install
 npm run start
 ```
+## Example
+```javascript
+import React from 'react'
+import {render} from 'react-dom'
+
+class Application extends React.Component {
+   render() {
+    const columns = [
+      {
+        id: 'id',
+        name: 'ID'
+      }, 
+      {
+        id: 'name',
+        name: 'Name',
+      }, 
+      {
+        id: 'address',
+        name: 'Street Address'
+      }, 
+      {
+        id: 'state',
+        name: 'State'
+      }, 
+      {
+        id: 'zip',
+        name: 'Code, Zip'
+      }
+    ];
+
+    const items = [{id: '1', name: 'Hoosier', address: '107 S Indiana Ave', state: 'IN', zip: '47405'}];
+
+    return (
+      <div>
+        <Component  
+        columns={columns} 
+        data={items}
+        showColumnFilter
+        downloadButton={['tsv']}
+        maxHeight={1000}
+        width={1110} />
+      </div>
+    );      
+  }
+};
+```
+
+## Installation
+
+npm:
+```bash
+npm install --save react-flybase-datagrid
+```
 
 [build-badge]: https://img.shields.io/travis/user/repo/master.png?style=flat-square
 [build]: https://travis-ci.org/user/repo
