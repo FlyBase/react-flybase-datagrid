@@ -29,42 +29,41 @@ class FlyBaseDataGrid extends Component {
     this.props.columns.forEach((col) => sortCols[col.id] = NONE);
     return sortCols;
   }
+  
+  getTextFormatter(columnId) {
+    const columnDef = _.find(this.props.columns, c => c.id === columnId);
+    return (columnDef && columnDef.getText) || (v => v.toString());
+  }
 
   handleColumnFilter(e, column){
+    const getText = this.getTextFormatter(column);
+    //  reset all column filter boxes to "" on focus change
+    //  reset grid to default items
+    const filterText = e.target.value.toLowerCase(); 
+    const temp = this.props.data;
+    const isMatch = (item) => {
+      const value = item[column];
+      return (getText(value).toLowerCase().indexOf(filterText) != -1);
+    }
 
-      //  reset all column filter boxes to "" on focus change
-      //  reset grid to default items
-     const filterText = e.target.value.toLowerCase(); 
+    const filteredItems = temp.filter(item => isMatch(item));
+    if (!filteredItems.length) {
+      filteredItems.push({ id: "", name: "", address: "", state: "", zip: ""});
+    }
 
-      const temp = this.props.data;
-
-      var value;
-      function isMatch(item){
-
-         value = item[column];
-
-        return (value.toString().toLowerCase().indexOf(filterText)!=-1);
-
-      }
-
-      const filteredItems = temp.filter((item) => { return isMatch(item); });
-
-      if (!filteredItems.length){
-         filteredItems.push({ id: "", name: "", address: "", state: "", zip: ""});
-      }
-
-     this.setState({
-       items: filteredItems,
-       filter: filterText
-      });
+    this.setState({
+      items: filteredItems,
+      filter: filterText
+    });
   }
 
   handleSort(column) {
     let current = this.state.sortDir;
     const sortDir = current[column];
+    const getText = this.getTextFormatter(column);
 
-    let sortedItems = _.sortBy(this.state.items, column);
-    if ( sortDir === ASC) {
+    let sortedItems = _.sortBy(this.state.items, row => getText(row[column]));
+    if (sortDir === ASC) {
       sortedItems.reverse();
     }
 
@@ -74,8 +73,7 @@ class FlyBaseDataGrid extends Component {
     // Reverse sort
     if (sortDir === ASC) {
       current[column] = DESC;
-    }
-    else {
+    } else {
       current[column] = ASC;
     }
 
@@ -149,8 +147,10 @@ FlyBaseDataGrid.propTypes = {
   data: PropTypes.array.isRequired,
   columns: PropTypes.arrayOf(
     PropTypes.shape({
+      getText: PropTypes.func,
       id: PropTypes.string,
       name: PropTypes.string,
+      render: PropTypes.func,
   }),
   ).isRequired,
   rowHeight: PropTypes.number,
