@@ -6,7 +6,7 @@ function Download(props) {
 
     function render(array, separator='\t'){
 
-     var str = columns.map((obj) => {return '"' + obj.name + '"';}) + '\n';
+     var str = columns.map(col =>  `"${col.name}"`).join(separator) + '\r\n';
 
        for (var i = 0; i < array.length; i++) {
         var line = '';
