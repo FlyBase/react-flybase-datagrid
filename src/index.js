@@ -92,7 +92,9 @@ class FlyBaseDataGrid extends Component {
       <div>
 
           <Table maxHeight={maxHeight} rowsCount={items.length} {...props}>
-            { columns.map((column) =>
+            { columns
+              .filter(column => !column.hidden)
+              .map((column) =>
                      <Column
                        width={200}
                        allowCellsRecycling={false}
@@ -148,6 +150,7 @@ FlyBaseDataGrid.propTypes = {
   columns: PropTypes.arrayOf(
     PropTypes.shape({
       getText: PropTypes.func,
+      hidden: PropTypes.bool,
       id: PropTypes.string,
       name: PropTypes.string,
       render: PropTypes.func,
