@@ -85,18 +85,20 @@ class FlyBaseDataGrid extends Component {
  }
 
   render() {
-    const { columns, data, showColumnFilter, downloadButton, maxHeight, ...props } = this.props;
+    const { columns, data, showColumnFilter, downloadButton, maxHeight, containerWidth, ...props } = this.props;
     const { items } = this.state;
 
     return (
       <div>
 
-          <Table maxHeight={maxHeight} rowsCount={items.length} {...props}>
+          <Table height={1000} rowsCount={items.length} {...props}
+            width={containerWidth}
+          >
             { columns
               .filter(column => !column.hidden)
               .map((column) =>
                      <Column
-                       width={200}
+                       width={containerWidth/columns.length}
                        allowCellsRecycling={false}
                        key={column.id}
                        flexGrow={1}
@@ -170,5 +172,5 @@ FlyBaseDataGrid.defaultProps = {
   width: 1000,
   showFilter: false,
 };
-
-export default FlyBaseDataGrid;
+export default Dimensions()(FlyBaseDataGrid)
+//export default FlyBaseDataGrid;
