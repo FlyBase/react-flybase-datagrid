@@ -40,7 +40,7 @@ function getHeaders() {
 function generateList() {
   var items = [];
 
-  for (var i = 1; i <= 5000; i++) {
+  for (var i = 1; i <= 50; i++) {
     items.push({id: i, name: faker.name.findName(), address: faker.address.streetAddress(), state: faker.address.stateAbbr(), zip: faker.address.zipCode()});
   }
 
