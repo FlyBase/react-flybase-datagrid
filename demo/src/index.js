@@ -49,7 +49,8 @@ function generateList() {
 
 const data = generateList();
 
-let Demo = React.createClass({
+class Demo extends Component {
+
   render() {
     return (
       <div>
@@ -63,7 +64,7 @@ let Demo = React.createClass({
       </div>
     );      
   }
-});
+}
 
 render(
   <Demo/>, document.querySelector('#demo'))
