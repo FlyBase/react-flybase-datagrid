@@ -18,8 +18,9 @@ function Header(props) {
 
   const { columnKey, height, width, children, onClick, sortDir, value, onChange, filter, displayFilter, filterText } = props;
 
-  function handleOnClick() {
+  function handleOnClick(e) {
     onClick(columnKey);
+    e.preventDefault();
   }
 
   function handleOnChange(e) {
@@ -29,7 +30,7 @@ function Header(props) {
   return (
     <div className={'flybaseDataGrid_header'}>
       <Cell>
-        <a href='#' onClick={handleOnClick}> {children} {renderArrow(sortDir)} </a>
+        <a href='' onClick={handleOnClick}> {children} {renderArrow(sortDir)} </a>
       </Cell>
 
       {
