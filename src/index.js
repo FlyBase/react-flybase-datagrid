@@ -91,8 +91,11 @@ class FlyBaseDataGrid extends Component {
     return (
       <div>
 
-          <Table height={1000} rowsCount={items.length} {...props}
+          <Table 
+            rowsCount={items.length} 
             width={containerWidth}
+            maxHeight={maxHeight}
+            {...props}
           >
             { columns
               .filter(column => !column.hidden)
@@ -160,7 +163,6 @@ FlyBaseDataGrid.propTypes = {
   rowHeight: PropTypes.number,
   headerHeight: PropTypes.number,
   width: PropTypes.number,
-  height: PropTypes.number,
   maxHeight: PropTypes.number,
   showFilter: PropTypes.bool,
 };
@@ -168,8 +170,7 @@ FlyBaseDataGrid.propTypes = {
 FlyBaseDataGrid.defaultProps = {
   rowHeight: 50,
   headerHeight: 50,
-  width: 1000,
   showFilter: false,
 };
+
 export default Dimensions()(FlyBaseDataGrid)
-//export default FlyBaseDataGrid;
