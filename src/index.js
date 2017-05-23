@@ -30,20 +30,20 @@ class FlyBaseDataGrid extends Component {
     return sortCols;
   }
   
-  getTextFormatter(columnId) {
+  getColumnText(columnId) {
     const columnDef = _.find(this.props.columns, c => c.id === columnId);
-    return (columnDef && columnDef.getText) || (v => v.toString());
+    return (columnDef && columnDef.getText) || (v => v);
   }
 
   handleColumnFilter(e, column){
-    const getText = this.getTextFormatter(column);
+    const getText = this.getColumnText(column);
     //  reset all column filter boxes to "" on focus change
     //  reset grid to default items
     const filterText = e.target.value.toLowerCase(); 
     const temp = this.props.data;
     const isMatch = (item) => {
       const value = item[column];
-      return (getText(value).toLowerCase().indexOf(filterText) != -1);
+      return (getText(value).toString().toLowerCase().indexOf(filterText) != -1);
     }
 
     const filteredItems = temp.filter(item => isMatch(item));
@@ -60,7 +60,7 @@ class FlyBaseDataGrid extends Component {
   handleSort(column) {
     let current = this.state.sortDir;
     const sortDir = current[column];
-    const getText = this.getTextFormatter(column);
+    const getText = this.getColumnText(column);
 
     let sortedItems = _.sortBy(this.state.items, row => getText(row[column]));
     if (sortDir === ASC) {
