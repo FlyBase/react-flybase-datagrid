@@ -60,7 +60,7 @@ class Demo extends Component {
         showColumnFilter
         downloadButton={['tsv','csv']}
         maxHeight={1000000000}
-        width={1110} />
+        />
       </div>
     );      
   }
