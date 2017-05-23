@@ -1,7 +1,7 @@
 import React from 'react'
 import {render} from 'react-dom'
 
-import Component from '../../src'
+import FlybaseDataGrid from '../../src'
 import faker from 'faker'
 import '../../dist/fixed-data-table.css';
 
@@ -54,7 +54,7 @@ class Demo extends Component {
   render() {
     return (
       <div>
-        <Component  
+        <FlybaseDataGrid  
         columns={getHeaders()} 
         data={data}
         showColumnFilter
