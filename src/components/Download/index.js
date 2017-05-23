@@ -3,8 +3,32 @@ import React, { Component, PropTypes } from 'react';
 function Download(props) {
   const { items, type, columns } = props;
   
+  function timeStamp() {
+    var now = new Date();
+
+    var date = [ now.getMonth() + 1, now.getDate(), now.getFullYear() ];
+
+    var time = [ now.getHours(), now.getMinutes(), now.getSeconds() ];
+
+    var suffix = ( time[0] < 12 ) ? "AM" : "PM";
+
+    time[0] = ( time[0] < 12 ) ? time[0] : time[0] - 12;
+
+    time[0] = time[0] || 12;
+
+    for ( var i = 1; i < 3; i++ ) {
+      if ( time[i] < 10 ) {
+        time[i] = "0" + time[i];
+      }
+    }
+
+    return date.join("/") + " " + time.join(":") + " " + suffix;
+  }
+
   function render(array, separator='\t'){
-    let str = columns.map(col =>  `"${col.name}"`).join(separator) + '\r\n';
+    let str = timeStamp() + '\r\n';
+    str += columns.map(col =>  `"${col.name}"`).join(separator) + '\r\n';
+
     array.forEach((row) => {
       let line = '';
       columns.forEach((column) => {
@@ -16,6 +40,7 @@ function Download(props) {
       });
       str += line + '\r\n';
     });
+
     return str;
   }
 
