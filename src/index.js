@@ -85,7 +85,7 @@ class FlyBaseDataGrid extends Component {
  }
 
   render() {
-    const { columns, data, showColumnFilter, downloadButton, maxHeight, containerWidth, ...props } = this.props;
+    const { columns, data, filename, showColumnFilter, downloadButton, maxHeight, containerWidth, ...props } = this.props;
     const { items } = this.state;
 
     return (
@@ -140,7 +140,15 @@ class FlyBaseDataGrid extends Component {
           </Table>
 
         { 
-          downloadButton.map((type) => <Download className={'btn btn-default'} columns={columns} items={items} key={type} type={type} /> ) 
+          downloadButton.map((type) => 
+            <Download 
+              className={'btn btn-default'}
+              columns={columns}
+              filename={filename}
+              items={items}
+              key={type}
+              type={type} 
+            />) 
         }
 
       </div>
@@ -168,6 +176,7 @@ FlyBaseDataGrid.propTypes = {
 };
 
 FlyBaseDataGrid.defaultProps = {
+  filename: 'filename',
   rowHeight: 50,
   headerHeight: 50,
   showFilter: false,

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 function Download(props) {
-  const { items, type, columns } = props;
+  const { columns, filename, items, type } = props;
   
   function timeStamp() {
     var now = new Date();
@@ -51,7 +51,6 @@ function Download(props) {
       break;
     }
 
-    var filename = `filename.${props.type}`;
     var data = render(items, separator);
       
     var blob = new Blob([data], {type: `text/${props.type}`});
@@ -60,13 +59,13 @@ function Download(props) {
       // revoked by closing the blob for which they were created.
       // These URLs will no longer resolve as the data backing
       // the URL has been freed."
-      window.navigator.msSaveBlob(blob, filename);
+      window.navigator.msSaveBlob(blob, `${filename}.${props.type}`);
     } else {
       var csvURL = window.URL.createObjectURL(blob);
       var tempLink = document.createElement('a');
       tempLink.href = csvURL;
       // tempLink.href = encodeURIComponent(data);
-      tempLink.setAttribute('download', filename);
+      tempLink.setAttribute('download', `${filename}.${props.type}`);
       tempLink.setAttribute('target', '_blank');
       document.body.appendChild(tempLink);
       tempLink.click();
