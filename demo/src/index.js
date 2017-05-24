@@ -53,7 +53,6 @@ class Demo extends FlybaseDataGrid {
 
   render() {
     return (
-      <div>
         <FlybaseDataGrid  
         columns={getHeaders()} 
         data={data}
@@ -61,7 +60,6 @@ class Demo extends FlybaseDataGrid {
         downloadButton={['tsv','csv']}
         maxHeight={1000000000}
         />
-      </div>
     );      
   }
 }
