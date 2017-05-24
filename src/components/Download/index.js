@@ -5,15 +5,11 @@ function Download(props) {
   
   function timeStamp() {
     var now = new Date();
-
     var date = [ now.getMonth() + 1, now.getDate(), now.getFullYear() ];
-
     var time = [ now.getHours(), now.getMinutes(), now.getSeconds() ];
-
     var suffix = ( time[0] < 12 ) ? "AM" : "PM";
-
+  
     time[0] = ( time[0] < 12 ) ? time[0] : time[0] - 12;
-
     time[0] = time[0] || 12;
 
     for ( var i = 1; i < 3; i++ ) {
@@ -54,7 +50,7 @@ function Download(props) {
       separator = '\t';
       break;
     }
-    
+
     var filename = `filename.${props.type}`;
     var data = render(items, separator);
       
@@ -87,6 +83,5 @@ function Download(props) {
 Download.propTypes = {
   items: PropTypes.array.isRequired,
 };
-
 
 export default Download;
