@@ -49,7 +49,7 @@ function generateList() {
 
 const data = generateList();
 
-class Demo extends Component {
+class Demo extends FlybaseDataGrid {
 
   render() {
     return (
