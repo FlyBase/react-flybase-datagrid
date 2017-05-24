@@ -59,6 +59,7 @@ class Demo extends FlybaseDataGrid {
         showColumnFilter
         downloadButton={['tsv','csv']}
         maxHeight={1000000000}
+        filename={'MyDownload'}
         />
     );      
   }
