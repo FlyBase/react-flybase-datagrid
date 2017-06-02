@@ -1,6 +1,6 @@
 import React from 'react'
 import {render} from 'react-dom'
-
+import PropTypes from 'prop-types';
 import FlybaseDataGrid from '../../src'
 import faker from 'faker'
 import '../../dist/fixed-data-table.css';
@@ -48,19 +48,25 @@ function generateList() {
 };
 
 const data = generateList();
+const style = {
+  width: 800,
+};
+
 
 class Demo extends FlybaseDataGrid {
 
   render() {
     return (
-        <FlybaseDataGrid  
-        columns={getHeaders()} 
-        data={data}
-        showColumnFilter
-        downloadButton={['tsv','csv']}
-        maxHeight={1000000000}
-        filename={'MyDownload'}
-        />
+        <div style={{width:600}} >
+          <FlybaseDataGrid  
+          columns={getHeaders()} 
+          data={data}
+          showColumnFilter
+          downloadButton={['tsv','csv']}
+          maxHeight={1000000000}
+          filename={'MyDownload'}
+          />
+        </div>
     );      
   }
 }
