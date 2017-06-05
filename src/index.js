@@ -102,7 +102,6 @@ class FlyBaseDataGrid extends Component {
               .map((column) =>
                      <Column
                        width={containerWidth/columns.filter(c => !c.hidden).length}
-                       allowCellsRecycling={false}
                        key={column.id}
                        columnKey={column.id}
 
