@@ -10,26 +10,33 @@ function getHeaders() {
   var columns = [
     {
       id: 'id',
-      name: 'ID'
+      name: 'ID',
+      maxWidth: 50,
+      flexGrow: false
     }, 
     {
       id: 'name',
       name: 'Name',
       render: (name, row) => (
         <a href={`https://duckduckgo.com/?q=${name} ${row['zip']}`} target='_blank'>{name}</a> 
-      )
+      ),
+      flexGrow: true,
     }, 
     {
       id: 'address',
-      name: 'Street Address'
+      name: 'Street Address',
+      flexGrow: true
     }, 
     {
       id: 'state',
-      name: 'State'
+      name: 'State',
+      maxWidth: 15,
+      flexGrow: true
     }, 
     {
       id: 'zip',
-      name: 'Code, Zip'
+      name: 'Code, Zip',
+      flexGrow: true,
     }
   ];
 

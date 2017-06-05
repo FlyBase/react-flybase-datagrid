@@ -101,9 +101,12 @@ class FlyBaseDataGrid extends Component {
               .filter(column => !column.hidden)
               .map((column) =>
                      <Column
-                       width={containerWidth/columns.filter(c => !c.hidden).length}
+                       width={
+                        column.maxWidth < containerWidth/columns.filter(c => !c.hidden).length ? column.maxWidth : containerWidth/columns.filter(c => !c.hidden).length
+                       }
                        key={column.id}
                        columnKey={column.id}
+                       flexGrow = {column.flexGrow}
 
                        header={
                          <Header
