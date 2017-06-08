@@ -12,7 +12,6 @@ function getHeaders() {
       id: 'id',
       name: 'ID',
       maxWidth: 50,
-      flexGrow: false
     }, 
     {
       id: 'name',
@@ -20,23 +19,23 @@ function getHeaders() {
       render: (name, row) => (
         <a href={`https://duckduckgo.com/?q=${name} ${row['zip']}`} target='_blank'>{name}</a> 
       ),
-      flexGrow: true,
+      flexGrow: 1,
     }, 
     {
       id: 'address',
       name: 'Street Address',
-      flexGrow: true
+      flexGrow: 1
     }, 
     {
       id: 'state',
       name: 'State',
       maxWidth: 15,
-      flexGrow: true
+      flexGrow: 1
     }, 
     {
       id: 'zip',
       name: 'Code, Zip',
-      flexGrow: true,
+      flexGrow: 1,
     }
   ];
 
@@ -55,10 +54,6 @@ function generateList() {
 };
 
 const data = generateList();
-const style = {
-  width: 800,
-};
-
 
 class Demo extends FlybaseDataGrid {
 
@@ -66,12 +61,12 @@ class Demo extends FlybaseDataGrid {
     return (
         <div style={{width:600}} >
           <FlybaseDataGrid  
-          columns={getHeaders()} 
-          data={data}
-          showColumnFilter
-          downloadButton={['tsv','csv']}
-          maxHeight={1000000000}
-          filename={'MyDownload'}
+            columns={getHeaders()} 
+            data={data}
+            showColumnFilter
+            downloadButton={['tsv','csv']}
+            maxHeight={1000000000}
+            filename={'MyDownload'}
           />
         </div>
     );      
