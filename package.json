@@ -25,6 +25,7 @@
     "faker": "*",
     "fixed-data-table-2": "*",
     "prop-types": "*",
+    "react-container-dimensions": "^1.3.2",
     "react-dimensions": "*",
     "react-measure": "*",
     "underscore": "*"
