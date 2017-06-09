@@ -29,8 +29,7 @@ function getHeaders() {
     {
       id: 'state',
       name: 'State',
-      maxWidth: 15,
-      flexGrow: 1
+      maxWidth: 50,
     }, 
     {
       id: 'zip',
@@ -59,7 +58,7 @@ class Demo extends FlybaseDataGrid {
 
   render() {
     return (
-        <div style={{width:600}} >
+        <div>
           <FlybaseDataGrid  
             columns={getHeaders()} 
             data={data}
