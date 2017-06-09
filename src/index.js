@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { Table, Column, Cell } from 'fixed-data-table-2';
 import _ from 'underscore';
-
+import PropTypes from 'prop-types';
 // import '../dist/fixed-data-table.css';
 // import '../dist/agr.css';
 
