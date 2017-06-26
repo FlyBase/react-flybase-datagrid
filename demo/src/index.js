@@ -20,6 +20,7 @@ function getHeaders() {
         <a href={`https://duckduckgo.com/?q=${name} ${row['zip']}`} target='_blank'>{name}</a> 
       ),
       flexGrow: 1,
+      showColumnFilter: true
     }, 
     {
       id: 'address',
@@ -30,6 +31,7 @@ function getHeaders() {
       id: 'state',
       name: 'State',
       maxWidth: 50,
+      showColumnFilter: true
     }, 
     {
       id: 'zip',
@@ -62,7 +64,6 @@ class Demo extends FlybaseDataGrid {
           <FlybaseDataGrid  
             columns={getHeaders()} 
             data={data}
-            showColumnFilter
             downloadButton={['tsv','csv']}
             maxHeight={1000000000}
             filename={'MyDownload'}
