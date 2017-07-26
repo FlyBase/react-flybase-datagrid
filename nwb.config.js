@@ -3,7 +3,7 @@ module.exports = {
   npm: {
     esModules: true,
     umd: {
-      global: 'FlybaseDataGrid',
+      global: 'react-flybase-datagrid',
       externals: {
         react: 'React'
       }

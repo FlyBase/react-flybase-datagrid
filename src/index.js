@@ -1,187 +1,109 @@
-import React, { Component } from 'react';
-import { Table, Column, Cell } from 'fixed-data-table-2';
-import _ from 'underscore';
-import PropTypes from 'prop-types';
-// import '../dist/fixed-data-table.css';
-// import '../dist/agr.css';
+/* eslint max-len: 0 */
+import React from 'react';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import Download from './Download';
 
-import { ASC, DESC, NONE } from './constants';
-import Header from './components/Header';
-import Download from './components/Download';
-import Filter from './components/ColumnFilter';
-import Dimensions from 'react-dimensions';
-import debug from 'debug';
+import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 
-class FlyBaseDataGrid extends Component {
-  constructor(props) {
+let order = 'desc';
+
+export default class BorderlessTable extends React.Component {
+
+constructor(props) {
     super(props);
+
     this.state = {
-      sortDir: this.initSortCols(),
-      items: props.data,
-      filter: '',
-    };
-    this.handleSort   = this.handleSort.bind(this);
-    this.handleColumnFilter = this.handleColumnFilter.bind(this);
-  }
-
-  initSortCols() {
-    const sortCols = {};
-    this.props.columns.forEach((col) => sortCols[col.id] = NONE);
-    return sortCols;
-  }
-  
-  getColumnText(columnId) {
-    const columnDef = _.find(this.props.columns, c => c.id === columnId);
-    return (columnDef && columnDef.getText) || (v => v);
-  }
-
-  handleColumnFilter(e, column){
-    const getText = this.getColumnText(column);
-    //  reset all column filter boxes to "" on focus change
-    //  reset grid to default items
-    const filterText = e.target.value.toLowerCase(); 
-    const temp = this.props.data;
-    const isMatch = (item) => {
-      const value = item[column];
-      return (getText(value).toString().toLowerCase().indexOf(filterText) != -1);
+      extension: 'csv',
+      filename: 'myfile',
+      separator: ',',
     }
-
-    const filteredItems = temp.filter(item => isMatch(item));
-    if (!filteredItems.length) {
-      filteredItems.push({ id: "", name: "", address: "", state: "", zip: ""});
-    }
-
-    this.setState({
-      items: filteredItems,
-      filter: filterText
-    });
+    this.getFilename = this.getFilename.bind(this);
+    this.updateExportOpts = this.updateExportOpts.bind(this);
   }
 
-  handleSort(column) {
-    let current = this.state.sortDir;
-    const sortDir = current[column];
-    const getText = this.getColumnText(column);
+  componentDidMount() {
+    // var myHeight = ReactDOM.findDOMNode(this).offsetHeight;
+    // rowHeights[this.props.rowIndex] = Math.max(rowHeights[this.props.rowIndex] || 0, myHeight);
+    // debouncedRender();
+    
+    //alert('in componentDidMount')
+  }
 
-    let sortedItems = _.sortBy(this.state.items, row => getText(row[column]));
-    if (sortDir === ASC) {
-      sortedItems.reverse();
+  getFilename() {
+    const timestamp = Math.floor(Date.now() / 1000);
+    return this.state.filename + "_" + timestamp + "." + this.state.extension;
+  }
+
+  updateExportOpts(format) {
+    console.log('updateExport called');
+    if (format === 'tsv') {
+      this.setState({extension: 'tsv', separator: '\t'});
     }
+    else {
+      this.setState({extension: 'csv', separator: ','});
+    }
+  }
 
-    // Reset all column sorts before we set the new sort direction below.
-    current = this.initSortCols();
-
-    // Reverse sort
-    if (sortDir === ASC) {
-      current[column] = DESC;
+    handleBtnClick = () => {
+    if (order === 'desc') {
+      this.refs.table.handleSort('asc', 'name');
+      order = 'asc';
     } else {
-      current[column] = ASC;
+      this.refs.table.handleSort('desc', 'name');
+      order = 'desc';
     }
-
-    // Set state with new sorted order.
-    this.setState({
-      sortDir: current,
-      items: sortedItems,
-    });
- }
+  }
 
   render() {
-    const { columns, data, filename, downloadButton, maxHeight, containerWidth, ...props } = this.props;
-    const { items } = this.state;
+
+    const options = { 
+      exportCSVSeparator: '\t', 
+      exportCSVText: 'Export TSV',
+      exportCSVBtn: (onClick) => <Download onClick={onClick} onExportChange={this.updateExportOpts} />,
+      exportCSVSeparator: this.state.separator,
+    };
+
+    const { data} = this.props;
+    const columns  = [
+      { id: 'id', name: 'ID', isKey : true, dataSort: true, isFilterable: false },
+      { id: 'name', name: 'Disease Name', isKey : false, dataSort: false, isFilterable: true },
+      { id: 'evidence', name: 'Evidence', isKey : false, dataSort: true, isFilterable: false },
+      { id: 'assoc', name: 'Assoc', isKey : false, dataSort: false, isFilterable: false },
+      { id: 'ref', name: 'Ref', isKey : false, dataSort: false, isFilterable: false },
+    ];
+
+      var returnString = (<div>
+
+         <BootstrapTable exportCSV options={ options } data={ data } bordered={ false } maxHeight={'250px'} csvFileName={this.getFilename} >
+          { columns.map((column) =>
+
+            <TableHeaderColumn 
+              key={ column.id }
+              dataField={ column.id } 
+              isKey={ column.isKey } 
+              dataSort={ column.dataSort }
+
+             // ref='{column.id}' filter={ { placeholder:'Filter this column', type: 'RegexFilter', delay: 1000 } } 
+            >
+          
+            { column.dataSort ? <a href='#'> {column.name} </a> : column.name } 
+
+            </TableHeaderColumn>
+          )
+
+          //     <TableHeaderColumn dataField='id' isKey={ true } dataSort={ true }><a href='#'> { column.name } </a></TableHeaderColumn>
+          //     <TableHeaderColumn dataField='name' ref='nameCol' filter={ { placeholder:'Filter this column', type: 'RegexFilter', delay: 1000 } }> { column.name } </TableHeaderColumn>
+          //     <TableHeaderColumn dataField='evidence'></TableHeaderColumn>
+          //     <TableHeaderColumn dataField='assoc'></TableHeaderColumn>
+          //     <TableHeaderColumn dataField='ref'></TableHeaderColumn>
+         }
+
+         </BootstrapTable>
+
+      </div>);
 
     return (
-      <div>
-
-          <Table 
-            rowsCount={items.length} 
-            width={containerWidth}
-            maxHeight={maxHeight}
-            {...props}
-          >
-            { columns
-              .filter(column => !column.hidden)
-              .map((column) =>
-                     <Column
-                       width={
-                        column.maxWidth < containerWidth/columns.filter(c => !c.hidden).length ? column.maxWidth : containerWidth/columns.filter(c => !c.hidden).length
-                       }
-                       key={column.id}
-                       columnKey={column.id}
-                       flexGrow = {column.flexGrow}
-
-                       header={
-                         <Header
-                           filterText={this.state.filter}
-                           displayFilter={column.showColumnFilter}
-                           onChange={this.handleColumnFilter}
-                           onClick={this.handleSort}
-                           sortDir={this.state.sortDir[column.id]}
-                          >
-
-                           {column.name}
-
-                         </Header>
-                       }
-
-                       cell={
-                         (props) => {
-                           const row = items[props.rowIndex];
-                           let text = row[column.id];
-                           if (column.render) {
-                             text = column.render(text, row, column.id);
-                           }
-                           return (
-                             <Cell {...props}>
-                               {text}
-                             </Cell>
-                           )
-                         }
-                       }
-                     />
-                    )
-            }
-          </Table>
-
-        { 
-          downloadButton.map((type) => 
-            <Download 
-              className={'btn btn-default'}
-              columns={columns}
-              filename={filename}
-              items={items}
-              key={type}
-              type={type} 
-            />) 
-        }
-
-      </div>
+        <div>{returnString}</div>
     );
   }
 }
-
-// See https://facebook.github.io/react/docs/typechecking-with-proptypes.html
-FlyBaseDataGrid.propTypes = {
-  data: PropTypes.array.isRequired,
-  columns: PropTypes.arrayOf(
-    PropTypes.shape({
-      getText: PropTypes.func,
-      hidden: PropTypes.bool,
-      id: PropTypes.string,
-      name: PropTypes.string,
-      render: PropTypes.func,
-  }),
-  ).isRequired,
-  rowHeight: PropTypes.number,
-  headerHeight: PropTypes.number,
-  width: PropTypes.number,
-  maxHeight: PropTypes.number,
-  showFilter: PropTypes.bool,
-};
-
-FlyBaseDataGrid.defaultProps = {
-  filename: 'filename',
-  rowHeight: 50,
-  headerHeight: 50,
-  showFilter: false,
-};
-
-export default Dimensions()(FlyBaseDataGrid)

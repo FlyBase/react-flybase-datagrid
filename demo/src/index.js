@@ -1,77 +1,56 @@
 import React from 'react'
 import {render} from 'react-dom'
-import PropTypes from 'prop-types';
+import 'bootstrap/dist/css/bootstrap.css'
 import FlybaseDataGrid from '../../src'
-import faker from 'faker'
-import '../../dist/fixed-data-table.css';
 
-function getHeaders() {
+import 'react-bootstrap-table/dist/react-bootstrap-table.min.css'
+//import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 
-  var columns = [
+var columns = [
     {
       id: 'id',
       name: 'ID',
-      maxWidth: 50,
     }, 
     {
       id: 'name',
       name: 'Name',
-      render: (name, row) => (
-        <a href={`https://duckduckgo.com/?q=${name} ${row['zip']}`} target='_blank'>{name}</a> 
-      ),
-      flexGrow: 1,
-      showColumnFilter: true
-    }, 
-    {
-      id: 'address',
-      name: 'Street Address',
-      flexGrow: 1
-    }, 
-    {
-      id: 'state',
-      name: 'State',
-      maxWidth: 50,
-      showColumnFilter: true
-    }, 
-    {
-      id: 'zip',
-      name: 'Code, Zip',
-      flexGrow: 1,
     }
-  ];
+];
 
-  return columns;
+const items = [];
+ 
+   items.push({
+      id: 'a',
+      name: 'asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf ',
+      evidence: 'asdf',
+      assoc: 'asdf',
+      ref: 'asdf',
+    });
 
-}
+    items.push({
+      id: 'b',
+      name: 'bar',
+      evidence: 'zxcv',
+      assoc: 'asdf',
+      ref: 'asdf',
+    });
 
-function generateList() {
-  var items = [];
+     items.push({
+      id: 'c',
+      name: 'baz',
+      evidence: 'asdf',
+      assoc: 'asdf',
+      ref: 'asdf',
+    });
 
-  for (var i = 1; i <= 50; i++) {
-    items.push({id: i, name: faker.name.findName(), address: faker.address.streetAddress(), state: faker.address.stateAbbr(), zip: faker.address.zipCode()});
-  }
 
-  return items;
-};
-
-const data = generateList();
-
-class Demo extends FlybaseDataGrid {
-
+let Demo = React.createClass({
   render() {
-    return (
-        <div>
-          <FlybaseDataGrid  
-            columns={getHeaders()} 
-            data={data}
-            downloadButton={['tsv','csv']}
-            maxHeight={1000000000}
-            filename={'MyDownload'}
-          />
-        </div>
-    );      
+    return <div>
+        <h1>react-flybase-datagrid2</h1>
+        <FlybaseDataGrid data={ items } />
+      </div>
   }
-}
+})
 
-render(
-  <Demo/>, document.querySelector('#demo'))
+render(<Demo/>, document.querySelector('#demo'))

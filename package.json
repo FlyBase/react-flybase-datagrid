@@ -1,43 +1,36 @@
 {
   "name": "react-flybase-datagrid",
-  "version": "0.6.8",
-  "description": "A React data grid component for FlyBase reports.",
+  "version": "1.0.0",
+  "description": "react-flybase-datagrid React component",
   "main": "lib/index.js",
-  "jsnext:main": "es/index.js",
   "module": "es/index.js",
   "files": [
     "css",
     "es",
     "lib",
-    "umd",
-    "dist/"
+    "umd"
   ],
   "scripts": {
-    "build": "nwb build-react-component --copy-files",
+    "build": "nwb build-react-component",
     "clean": "nwb clean-module && npm clean-demo",
     "start": "nwb serve-react-demo",
-    "test": "nwb test",
-    "test:coverage": "nwb test --coverage",
-    "test:watch": "nwb test --server"
+    "test": "nwb test-react",
+    "test:coverage": "nwb test-react --coverage",
+    "test:watch": "nwb test-react --server"
   },
   "dependencies": {
-    "debug": "*",
-    "faker": "*",
-    "fixed-data-table-2": "*",
-    "prop-types": "*",
-    "react-container-dimensions": "^1.3.2",
-    "react-dimensions": "*",
-    "react-measure": "*",
-    "underscore": "*"
+    "bootstrap": "^4.0.0-alpha.6",
+    "prop-types": "^15.5.10",
+    "react-bootstrap": "^0.31.1",
+    "react-bootstrap-table": "^3.4.6"
   },
   "peerDependencies": {
-    "react": "*"
+    "react": "15.x"
   },
   "devDependencies": {
-    "nwb": "*",
-    "react": "*",
-    "react-dom": "*",
-    "webpack": "*"
+    "nwb": "0.15.x",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
   },
   "author": "",
   "homepage": "",
