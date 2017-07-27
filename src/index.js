@@ -57,17 +57,19 @@ constructor(props) {
 
     const { data} = this.props;
     const columns  = [
-      { id: 'id', name: 'ID', isKey : true, dataSort: true, isFilterable: false },
-      { id: 'name', name: 'Disease Name', isKey : false, dataSort: false, isFilterable: true },
-      { id: 'evidence', name: 'Evidence', isKey : false, dataSort: true, isFilterable: false },
-      { id: 'assoc', name: 'Assoc', isKey : false, dataSort: false, isFilterable: false },
-      { id: 'ref', name: 'Ref', isKey : false, dataSort: false, isFilterable: false },
+      { id: 'id', name: 'ID', isKey : true, dataSort: true, isFilterable: false, hidden: false },
+      { id: 'name', name: 'Disease Name', isKey : false, dataSort: false, isFilterable: true, hidden: false },
+      { id: 'evidence', name: 'Evidence', isKey : false, dataSort: true, isFilterable: false, hidden: false },
+      { id: 'assoc', name: 'Assoc', isKey : false, dataSort: false, isFilterable: false, hidden: true },
+      { id: 'ref', name: 'Ref', isKey : false, dataSort: false, isFilterable: false, hidden: true },
     ];
 
       var returnString = (<div>
 
          <BootstrapTable exportCSV options={ options } data={ data } bordered={ false } maxHeight={'250px'} csvFileName={this.getFilename} >
-          { columns.map((column) =>
+          { columns
+            .filter(column => !column.hidden)
+            .map((column) =>
 
             <TableHeaderColumn 
               tdStyle={ { whiteSpace: 'normal' } }
@@ -82,7 +84,7 @@ constructor(props) {
             { column.dataSort ? <a href='#'> {column.name} </a> : column.name } 
 
             </TableHeaderColumn>
-          )
+             )
 
          }
 
