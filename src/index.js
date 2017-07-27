@@ -21,14 +21,6 @@ constructor(props) {
     this.updateExportOpts = this.updateExportOpts.bind(this);
   }
 
-  componentDidMount() {
-    // var myHeight = ReactDOM.findDOMNode(this).offsetHeight;
-    // rowHeights[this.props.rowIndex] = Math.max(rowHeights[this.props.rowIndex] || 0, myHeight);
-    // debouncedRender();
-    
-    //alert('in componentDidMount')
-  }
-
   getFilename() {
     const timestamp = Math.floor(Date.now() / 1000);
     return this.state.filename + "_" + timestamp + "." + this.state.extension;
