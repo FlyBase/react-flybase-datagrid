@@ -78,6 +78,7 @@ constructor(props) {
           { columns.map((column) =>
 
             <TableHeaderColumn 
+              tdStyle={ { whiteSpace: 'normal' } }
               key={ column.id }
               dataField={ column.id } 
               isKey={ column.isKey } 
@@ -91,11 +92,6 @@ constructor(props) {
             </TableHeaderColumn>
           )
 
-          //     <TableHeaderColumn dataField='id' isKey={ true } dataSort={ true }><a href='#'> { column.name } </a></TableHeaderColumn>
-          //     <TableHeaderColumn dataField='name' ref='nameCol' filter={ { placeholder:'Filter this column', type: 'RegexFilter', delay: 1000 } }> { column.name } </TableHeaderColumn>
-          //     <TableHeaderColumn dataField='evidence'></TableHeaderColumn>
-          //     <TableHeaderColumn dataField='assoc'></TableHeaderColumn>
-          //     <TableHeaderColumn dataField='ref'></TableHeaderColumn>
          }
 
          </BootstrapTable>
