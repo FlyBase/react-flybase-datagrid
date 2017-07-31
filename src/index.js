@@ -57,7 +57,7 @@ constructor(props) {
 
     const { data} = this.props;
     const columns  = [
-      { id: 'id', name: 'ID', isKey : true, dataSort: true, isFilterable: false, hidden: false },
+      { id: 'id', name: 'ID', isKey : true, dataSort: true, isFilterable: true, hidden: false },
       { id: 'name', name: 'Disease Name', isKey : false, dataSort: false, isFilterable: true, hidden: false },
       { id: 'evidence', name: 'Evidence', isKey : false, dataSort: true, isFilterable: false, hidden: false },
       { id: 'assoc', name: 'Assoc', isKey : false, dataSort: false, isFilterable: false, hidden: true },
@@ -77,8 +77,7 @@ constructor(props) {
               dataField={ column.id } 
               isKey={ column.isKey } 
               dataSort={ column.dataSort }
-
-             // ref='{column.id}' filter={ { placeholder:'Filter this column', type: 'RegexFilter', delay: 1000 } } 
+              filter={ column.isFilterable && { placeholder:'Filter this column', type: 'RegexFilter', delay: 1000 }} 
             >
           
             { column.dataSort ? <a href='#'> {column.name} </a> : column.name } 
