@@ -6,20 +6,17 @@ import FlybaseDataGrid from '../../src'
 import 'react-bootstrap-table/dist/react-bootstrap-table.min.css'
 //import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 
-var columns = [
-    {
-      id: 'id',
-      name: 'ID',
-    }, 
-    {
-      id: 'name',
-      name: 'Name',
-    }
-];
+const columns  = [
+      { id: 'id', name: 'ID', isKey : true, dataSort: true, isFilterable: true, hidden: false },
+      { id: 'name', name: 'Disease Name', isKey : false, dataSort: false, isFilterable: true, hidden: false },
+      { id: 'evidence', name: 'Evidence', isKey : false, dataSort: true, isFilterable: false, hidden: false },
+      { id: 'assoc', name: 'Assoc', isKey : false, dataSort: false, isFilterable: false, hidden: true },
+      { id: 'ref', name: 'Ref', isKey : false, dataSort: false, isFilterable: false, hidden: true },
+    ];
 
-const items = [];
+const data = [];
  
-   items.push({
+   data.push({
       id: 'a',
       name: 'asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf ',
       evidence: 'asdf',
@@ -27,7 +24,7 @@ const items = [];
       ref: 'asdf',
     });
 
-    items.push({
+    data.push({
       id: 'b',
       name: 'bar',
       evidence: 'zxcv',
@@ -35,7 +32,7 @@ const items = [];
       ref: 'asdf',
     });
 
-     items.push({
+     data.push({
       id: 'c',
       name: 'baz',
       evidence: 'asdf',
@@ -48,7 +45,7 @@ let Demo = React.createClass({
   render() {
     return <div>
         <h1>react-flybase-datagrid2</h1>
-        <FlybaseDataGrid data={ items } />
+        <FlybaseDataGrid data={ data } columns={ columns }/>
       </div>
   }
 })

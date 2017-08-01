@@ -55,14 +55,7 @@ constructor(props) {
       exportCSVSeparator: this.state.separator,
     };
 
-    const { data} = this.props;
-    const columns  = [
-      { id: 'id', name: 'ID', isKey : true, dataSort: true, isFilterable: true, hidden: false },
-      { id: 'name', name: 'Disease Name', isKey : false, dataSort: false, isFilterable: true, hidden: false },
-      { id: 'evidence', name: 'Evidence', isKey : false, dataSort: true, isFilterable: false, hidden: false },
-      { id: 'assoc', name: 'Assoc', isKey : false, dataSort: false, isFilterable: false, hidden: true },
-      { id: 'ref', name: 'Ref', isKey : false, dataSort: false, isFilterable: false, hidden: true },
-    ];
+    const { data, columns } = this.props;
 
       var returnString = (<div>
 
@@ -77,6 +70,7 @@ constructor(props) {
               dataField={ column.id } 
               isKey={ column.isKey } 
               dataSort={ column.dataSort }
+              ref={ column.isFilterable && column.id }
               filter={ column.isFilterable && { placeholder:'Filter this column', type: 'RegexFilter', delay: 1000 }} 
             >
           
