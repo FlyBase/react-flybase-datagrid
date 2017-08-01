@@ -1,6 +1,6 @@
 {
   "name": "react-flybase-datagrid",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "react-flybase-datagrid React component",
   "main": "lib/index.js",
   "module": "es/index.js",
