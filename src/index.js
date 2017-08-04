@@ -57,6 +57,8 @@ constructor(props) {
 
     const { data, columns } = this.props;
 
+
+
       var returnString = (<div>
 
          <BootstrapTable exportCSV options={ options } data={ data } bordered={ false } maxHeight={'250px'} csvFileName={this.getFilename} >
@@ -69,9 +71,7 @@ constructor(props) {
               key={ column.id }
               dataField={ column.id } 
               isKey={ column.isKey } 
-              dataSort={ column.dataSort }
-              ref={ column.isFilterable && column.id }
-              filter={ column.isFilterable && { placeholder:'Filter this column', type: 'RegexFilter', delay: 1000 }} 
+              dataSort={ column.dataSort } 
             >
           
             { column.dataSort ? <a href='#'> {column.name} </a> : column.name } 
