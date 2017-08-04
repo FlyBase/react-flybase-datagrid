@@ -43,7 +43,7 @@ const data = [];
 
 let Demo = React.createClass({
   render() {
-    return <div>
+    return <div className='container' >
         <h1>react-flybase-datagrid2</h1>
         <FlybaseDataGrid data={ data } columns={ columns }/>
       </div>
