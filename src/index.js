@@ -1,33 +1,52 @@
 /* eslint max-len: 0 */
-import React from 'react';
+import React, { Component } from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import Download from './Download';
+import PropTypes from 'prop-types';
 
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 
 let order = 'desc';
 
-export default class BorderlessTable extends React.Component {
+class BorderlessTable extends Component {
 
-constructor(props) {
+  constructor(props) {
     super(props);
 
     this.state = {
       extension: 'csv',
-      filename: 'myfile',
+      filename: this.props.filename,
       separator: ',',
     }
     this.getFilename = this.getFilename.bind(this);
+    this.getTimeStamp = this.getTimeStamp.bind(this);
     this.updateExportOpts = this.updateExportOpts.bind(this);
+  }
+
+  getTimeStamp() {
+    var now = new Date();
+    var date = [ now.getMonth() + 1, now.getDate(), now.getFullYear() ];
+    var time = [ now.getHours(), now.getMinutes(), now.getSeconds() ];
+    var suffix = ( time[0] < 12 ) ? "AM" : "PM";
+  
+    time[0] = ( time[0] < 12 ) ? time[0] : time[0] - 12;
+    time[0] = time[0] || 12;
+
+    for ( var i = 1; i < 3; i++ ) {
+      if ( time[i] < 10 ) {
+        time[i] = "0" + time[i];
+      }
+    }
+
+    return date.join("/") + " " + time.join(":") + " " + suffix;
   }
 
   getFilename() {
     const timestamp = Math.floor(Date.now() / 1000);
-    return this.state.filename + "_" + timestamp + "." + this.state.extension;
+    return this.state.filename + "_" + this.getTimeStamp() + "." + this.state.extension;
   }
 
   updateExportOpts(format) {
-    console.log('updateExport called');
     if (format === 'tsv') {
       this.setState({extension: 'tsv', separator: '\t'});
     }
@@ -36,7 +55,7 @@ constructor(props) {
     }
   }
 
-    handleBtnClick = () => {
+  handleBtnClick = () => {
     if (order === 'desc') {
       this.refs.table.handleSort('asc', 'name');
       order = 'asc';
@@ -96,3 +115,13 @@ constructor(props) {
     );
   }
 }
+
+BorderlessTable.PropTypes = {
+  filename: PropTypes.string.isRequired,
+}
+
+BorderlessTable.defaultProps = {
+  filename: 'myFilename',
+};
+
+export default BorderlessTable
