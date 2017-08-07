@@ -57,11 +57,17 @@ constructor(props) {
 
     const { data, columns } = this.props;
 
-
-
       var returnString = (<div>
 
-         <BootstrapTable exportCSV options={ options } data={ data } bordered={ false } maxHeight={'250px'} csvFileName={this.getFilename} >
+         <BootstrapTable 
+          exportCSV
+          options={ options }
+          data={ data }
+          bordered={ false }
+          maxHeight={'250px'}
+          csvFileName={this.getFilename}
+          //removes scroll bar
+          pagination >
           { columns
             .filter(column => !column.hidden)
             .map((column) =>
