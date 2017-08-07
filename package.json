@@ -19,10 +19,10 @@
     "test:watch": "nwb test-react --server"
   },
   "dependencies": {
-    "bootstrap": "^4.0.0-alpha.6",
+    "bootstrap": "^3.3.7",
     "prop-types": "^15.5.10",
-    "react-bootstrap": "^0.31.1",
-    "react-bootstrap-table": "^3.4.6"
+    "react-bootstrap": "^0.31.2",
+    "react-bootstrap-table": "^3.5.1"
   },
   "peerDependencies": {
     "react": "15.x"
