@@ -73,8 +73,7 @@ class BorderlessTable extends Component {
   render() {
 
     const options = { 
-      exportCSVSeparator: '\t', 
-      exportCSVText: 'Export TSV',
+      exportCSVSeparator: '\t',
       exportCSVBtn: (onClick) => <Download onClick={onClick} onExportChange={this.updateExportOpts} />,
       exportCSVSeparator: this.state.separator,
       toolbarPosition: 'bottom'
