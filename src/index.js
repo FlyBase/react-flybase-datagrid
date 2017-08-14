@@ -21,7 +21,7 @@ class BorderlessTable extends Component {
     this.getFilename = this.getFilename.bind(this);
     this.getTimeStamp = this.getTimeStamp.bind(this);
     this.updateExportOpts = this.updateExportOpts.bind(this);
-    this.handleChkBoxClick = this.handleChkBoxClick(this);
+    this.handleChkBoxClick = this.handleChkBoxClick.bind(this);
   }
 
   getTimeStamp() {
@@ -69,7 +69,6 @@ class BorderlessTable extends Component {
   handleChkBoxClick(event) {
   } 
 
-
   render() {
 
     const options = { 
@@ -81,7 +80,7 @@ class BorderlessTable extends Component {
 
     const { data, columns } = this.props;
     
-    var style = {
+    const style = {
       float: 'right',
     };
 
