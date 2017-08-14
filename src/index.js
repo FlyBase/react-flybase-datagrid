@@ -21,6 +21,7 @@ class BorderlessTable extends Component {
     this.getFilename = this.getFilename.bind(this);
     this.getTimeStamp = this.getTimeStamp.bind(this);
     this.updateExportOpts = this.updateExportOpts.bind(this);
+    this.handleChkBoxClick = this.handleChkBoxClick(this);
   }
 
   getTimeStamp() {
@@ -65,6 +66,10 @@ class BorderlessTable extends Component {
     }
   }
 
+  handleChkBoxClick(event) {
+  } 
+
+
   render() {
 
     const options = { 
@@ -72,19 +77,26 @@ class BorderlessTable extends Component {
       exportCSVText: 'Export TSV',
       exportCSVBtn: (onClick) => <Download onClick={onClick} onExportChange={this.updateExportOpts} />,
       exportCSVSeparator: this.state.separator,
+      toolbarPosition: 'bottom'
     };
 
     const { data, columns } = this.props;
+    
+    var style = {
+      float: 'right',
+    };
 
       var returnString = (<div>
 
+         <input name="show columns" type="checkbox" onChange={ this.handleChkBoxClick } style={ style } ></input>
+       
          <BootstrapTable 
           exportCSV
           options={ options }
           data={ data }
           bordered={ false }
-          maxHeight={'250px'}
-          csvFileName={this.getFilename}
+          maxHeight={ '250px' }
+          csvFileName={ this.getFilename }
           //removes scroll bar
           pagination >
           { columns
@@ -96,7 +108,9 @@ class BorderlessTable extends Component {
               key={ column.id }
               dataField={ column.id } 
               isKey={ column.isKey } 
-              dataSort={ column.dataSort } 
+              dataSort={ column.dataSort }
+              filter={{ placeholder: 'Filter this column', type: 'RegexFilter', delay: 1000 } }
+              
             >
           
             { column.dataSort ? <a href='#'> {column.name} </a> : column.name } 
@@ -107,6 +121,7 @@ class BorderlessTable extends Component {
          }
 
          </BootstrapTable>
+
 
       </div>);
 
