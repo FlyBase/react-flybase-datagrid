@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import Download from './Download';
 import PropTypes from 'prop-types';
+import CheckboxFilter from './CheckboxFilter';
+import ColumnFilter from './CheckboxFilter';
 
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 
@@ -21,7 +23,7 @@ class BorderlessTable extends Component {
     this.getFilename = this.getFilename.bind(this);
     this.getTimeStamp = this.getTimeStamp.bind(this);
     this.updateExportOpts = this.updateExportOpts.bind(this);
-    this.handleChkBoxClick = this.handleChkBoxClick.bind(this);
+    this.handleOnChange = this.handleOnChange.bind(this);
   }
 
   getTimeStamp() {
@@ -66,7 +68,14 @@ class BorderlessTable extends Component {
     }
   }
 
-  handleChkBoxClick(event) {
+  getCustomFilter(filterHandler, customFilterParameters) {
+    return (
+      <CheckboxFilter filterHandler={ filterHandler } textOK={ customFilterParameters.textOK } textNOK={ customFilterParameters.textNOK } />
+    );
+  }
+
+  handleOnChange(event) {
+
   } 
 
   render() {
@@ -84,9 +93,11 @@ class BorderlessTable extends Component {
       float: 'right',
     };
 
-      var returnString = (<div>
-
-         <input name="show columns" type="checkbox" onChange={ this.handleChkBoxClick } style={ style } ></input>
+      var returnString = (
+         <div>
+         <label style={ style }> show columns
+         <input name="show columns" type="checkbox" onChange={ this.handleOnChange }  ></input>
+         </label>
        
          <BootstrapTable 
           exportCSV
@@ -95,6 +106,7 @@ class BorderlessTable extends Component {
           bordered={ false }
           maxHeight={ '250px' }
           csvFileName={ this.getFilename }
+
           //removes scroll bar
           pagination >
           { columns
@@ -107,21 +119,18 @@ class BorderlessTable extends Component {
               dataField={ column.id } 
               isKey={ column.isKey } 
               dataSort={ column.dataSort }
-              filter={{ placeholder: 'Filter this column', type: 'RegexFilter', delay: 1000 } }
-              
+              filter={ { type: 'CustomFilter', getElement: this.getCustomFilter, customFilterParameters: { textOK: 'yes', textNOK: 'nope' } } }
             >
           
             { column.dataSort ? <a href='#'> {column.name} </a> : column.name } 
 
             </TableHeaderColumn>
              )
-
          }
 
          </BootstrapTable>
-
-
-      </div>);
+         </div>
+      );
 
     return (
         <div>{returnString}</div>
