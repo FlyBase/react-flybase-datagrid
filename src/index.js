@@ -4,7 +4,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import Download from './Download';
 import PropTypes from 'prop-types';
 import CheckboxFilter from './CheckboxFilter';
-import ColumnFilter from './CheckboxFilter';
+import ColumnFilter from './ColumnFilter';
 
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 
@@ -70,7 +70,7 @@ class BorderlessTable extends Component {
 
   getCustomFilter(filterHandler, customFilterParameters) {
     return (
-      <CheckboxFilter filterHandler={ filterHandler } textOK={ customFilterParameters.textOK } textNOK={ customFilterParameters.textNOK } />
+      <ColumnFilter placeholder={'filter me'} />
     );
   }
 
@@ -119,7 +119,7 @@ class BorderlessTable extends Component {
               dataField={ column.id } 
               isKey={ column.isKey } 
               dataSort={ column.dataSort }
-              filter={ { type: 'CustomFilter', getElement: this.getCustomFilter, customFilterParameters: { textOK: 'yes', textNOK: 'nope' } } }
+              filter={ { type: 'CustomFilter', getElement: this.getCustomFilter } }
             >
           
             { column.dataSort ? <a href='#'> {column.name} </a> : column.name } 
