@@ -19,7 +19,7 @@ const data = [];
    data.push({
       id: 'a',
       name: 'asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf ',
-      evidence: 'asdf',
+      evidence: 'yes',
       assoc: 'asdf',
       ref: 'asdf',
     });
@@ -27,7 +27,7 @@ const data = [];
     data.push({
       id: 'b',
       name: 'bar',
-      evidence: 'zxcv',
+      evidence: 'no',
       assoc: 'asdf',
       ref: 'asdf',
     });
@@ -35,7 +35,7 @@ const data = [];
      data.push({
       id: 'c',
       name: 'baz',
-      evidence: 'asdf',
+      evidence: 'yes',
       assoc: 'asdf',
       ref: 'asdf',
     });
