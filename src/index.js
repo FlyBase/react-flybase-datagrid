@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import Download from './Download';
 import PropTypes from 'prop-types';
-import CheckboxFilter from './CheckboxFilter';
-import ColumnFilter from './ColumnFilter';
 
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 
@@ -23,7 +21,6 @@ class BorderlessTable extends Component {
     this.getFilename = this.getFilename.bind(this);
     this.getTimeStamp = this.getTimeStamp.bind(this);
     this.updateExportOpts = this.updateExportOpts.bind(this);
-    this.handleOnChange = this.handleOnChange.bind(this);
   }
 
   getTimeStamp() {
@@ -68,17 +65,13 @@ class BorderlessTable extends Component {
     }
   }
 
-  getCustomFilter(filterHandler, customFilterParameters) {
-    return (
-      <ColumnFilter placeholder={'filter me'} />
-    );
-  }
-
-  handleOnChange(event) {
-
-  } 
-
   render() {
+
+    const textFilter = {
+      type: 'TextFilter',
+      delay: 100,
+      placeholder: ' '
+    };
 
     const options = { 
       exportCSVSeparator: '\t',
@@ -119,7 +112,7 @@ class BorderlessTable extends Component {
               dataField={ column.id } 
               isKey={ column.isKey } 
               dataSort={ column.dataSort }
-              filter={ { type: 'CustomFilter', getElement: this.getCustomFilter } }
+              filter={ textFilter }
             >
           
             { column.dataSort ? <a href='#'> {column.name} </a> : column.name } 
