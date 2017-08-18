@@ -112,7 +112,7 @@ class BorderlessTable extends Component {
               dataField={ column.id } 
               isKey={ column.isKey } 
               dataSort={ column.dataSort }
-              filter={ textFilter }
+              filter={ column.isFilterable ? textFilter : null }
             >
           
             { column.dataSort ? <a href='#'> {column.name} </a> : column.name } 
