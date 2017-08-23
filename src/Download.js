@@ -22,7 +22,7 @@ class Download extends Component {
   }
 
   handleOnChange(value) {
-    if (this.props.onExportChange) this.props.handleOnExportChange(value);
+    if (this.props.handleOnExportChange) this.props.handleOnExportChange(value);
   }
 
   render() {
