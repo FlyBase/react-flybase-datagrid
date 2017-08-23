@@ -22,7 +22,7 @@ class Download extends Component {
   }
 
   handleOnChange(value) {
-    if (this.props.onExportChange) this.props.onExportChange(value);
+    if (this.props.onExportChange) this.props.handleOnExportChange(value);
   }
 
   render() {
@@ -45,7 +45,7 @@ class Download extends Component {
 
 Download.propTypes = {
   onClick: PropTypes.func.isRequired,
-  onExportChange: PropTypes.func,
+  hanldeOnExportChange: PropTypes.func,
 };
 
 export default Download;
