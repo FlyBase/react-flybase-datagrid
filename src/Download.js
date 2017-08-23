@@ -29,7 +29,7 @@ class Download extends Component {
     return(
       <div>
         <ButtonToolbar>
-          <ToggleButtonGroup type="radio" name="export" defaultValue="csv" onChange={this.handleOnChange}>
+          <ToggleButtonGroup defaultValue="csv" name="export" onChange={this.handleOnChange} type="radio">
             <ToggleButton value="csv">CSV</ToggleButton>
             <ToggleButton value="tsv">TSV</ToggleButton>
           </ToggleButtonGroup>
@@ -46,6 +46,6 @@ class Download extends Component {
 Download.propTypes = {
   onClick: PropTypes.func.isRequired,
   onExportChange: PropTypes.func,
-}
+};
 
 export default Download;
