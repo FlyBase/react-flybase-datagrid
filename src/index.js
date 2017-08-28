@@ -17,10 +17,14 @@ class BorderlessTable extends Component {
       extension: 'csv',
       filename: this.props.filename,
       separator: ',',
+      isChecked: false,
+      data : this.props.data,
+      columns : this.props.columns
     }
     this.getFilename = this.getFilename.bind(this);
     this.getTimeStamp = this.getTimeStamp.bind(this);
     this.updateExportOpts = this.updateExportOpts.bind(this);
+    this.handleOnChange = this.handleOnChange.bind(this);
   }
 
   getTimeStamp() {
@@ -28,7 +32,7 @@ class BorderlessTable extends Component {
     var date = [ now.getMonth() + 1, now.getDate(), now.getFullYear() ];
     var time = [ now.getHours(), now.getMinutes(), now.getSeconds() ];
     var suffix = ( time[0] < 12 ) ? "AM" : "PM";
-  
+
     time[0] = ( time[0] < 12 ) ? time[0] : time[0] - 12;
     time[0] = time[0] || 12;
 
@@ -65,6 +69,15 @@ class BorderlessTable extends Component {
     }
   }
 
+  handleOnChange(e) {
+
+    this.setState( { isChecked: !this.state.isChecked } ); 
+    //this.setState( { columns[2].hidden: !this.state.columns[2].hidden } );
+
+    this.state.columns[2].hidden= !this.state.columns[2].hidden;
+
+  }
+
   render() {
 
     const textFilter = {
@@ -75,35 +88,34 @@ class BorderlessTable extends Component {
 
     const options = { 
       exportCSVSeparator: '\t',
-      exportCSVBtn: (onClick) => <Download onClick={onClick} onExportChange={this.updateExportOpts} />,
+      exportCSVBtn: (onClick) => <Download onClick={ onClick } onExportChange={ this.updateExportOpts } />,
       exportCSVSeparator: this.state.separator,
       toolbarPosition: 'bottom'
     };
-
-    const { data, columns } = this.props;
     
-    const style = {
-      float: 'right',
-    };
+    return (
+      <div>
+        
+        <label style={{ float: 'right' }}> Hide/Show Evidence
+          <input 
+            type="checkbox" 
+            onChange={ this.handleOnChange } 
+            value={ this.state.isChecked }
+            checked={ this.state.isChecked } >
+          </input>
+        </label>
 
-      var returnString = (
-         <div>
-         <label style={ style }> show columns
-         <input name="show columns" type="checkbox" onChange={ this.handleOnChange }  ></input>
-         </label>
-       
-         <BootstrapTable 
+        <BootstrapTable 
           exportCSV
           options={ options }
-          data={ data }
+          data={ this.state.data }
           bordered={ false }
           maxHeight={ '250px' }
           csvFileName={ this.getFilename }
-
-          //removes scroll bar
-          pagination >
-          { columns
-            .filter(column => !column.hidden)
+          pagination 
+        >
+          { this.state.columns
+            .filter( column => !column.hidden )
             .map((column) =>
 
             <TableHeaderColumn 
@@ -114,19 +126,16 @@ class BorderlessTable extends Component {
               dataSort={ column.dataSort }
               filter={ column.isFilterable ? textFilter : null }
             >
-          
-            { column.dataSort ? <a href='#'> {column.name} </a> : column.name } 
+
+             { column.dataSort ? <a href='#'> {column.name} </a> : column.name } 
 
             </TableHeaderColumn>
-             )
-         }
+            )
+          }
 
-         </BootstrapTable>
-         </div>
-      );
+        </BootstrapTable>
 
-    return (
-        <div>{returnString}</div>
+      </div>
     );
   }
 }
