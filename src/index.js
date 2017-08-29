@@ -92,6 +92,7 @@ class BorderlessTable extends Component {
       exportCSVSeparator: '\t',
       exportCSVBtn: (onClick) => <Download onClick={ onClick } onExportChange={ this.updateExportOpts } />,
       exportCSVSeparator: this.state.separator,
+      toolbarPosition: 'bottom',
       sizePerPageList: [ {
         text: '1', value: 1
       }, {
@@ -100,7 +101,7 @@ class BorderlessTable extends Component {
           text: '3', value: 3
       }, {
         text: 'All', value: this.state.data.length
-      } ],
+      } ], // you can change the dropdown list for size per page
     };
     
     return (
