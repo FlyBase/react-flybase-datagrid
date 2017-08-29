@@ -19,7 +19,8 @@ class BorderlessTable extends Component {
       separator: ',',
       isChecked: false,
       data : this.props.data,
-      columns : this.props.columns
+      columns : this.props.columns,
+      optionsState : 'A'
     }
     this.getFilename = this.getFilename.bind(this);
     this.getTimeStamp = this.getTimeStamp.bind(this);
@@ -72,6 +73,7 @@ class BorderlessTable extends Component {
   handleOnChange(e) {
 
     this.setState( { isChecked: !this.state.isChecked } ); 
+    //this.setState( { columns: (columns) => !this.state.columns[2].hidden } );
     //this.setState( { columns[2].hidden: !this.state.columns[2].hidden } );
 
     this.state.columns[2].hidden= !this.state.columns[2].hidden;
@@ -90,7 +92,15 @@ class BorderlessTable extends Component {
       exportCSVSeparator: '\t',
       exportCSVBtn: (onClick) => <Download onClick={ onClick } onExportChange={ this.updateExportOpts } />,
       exportCSVSeparator: this.state.separator,
-      toolbarPosition: 'bottom'
+      sizePerPageList: [ {
+        text: '1', value: 1
+      }, {
+        text: '2', value: 2
+      }, {
+          text: '3', value: 3
+      }, {
+        text: 'All', value: this.state.data.length
+      } ],
     };
     
     return (
