@@ -22,7 +22,7 @@
     "bootstrap": "^3.3.7",
     "prop-types": "^15.5.10",
     "react-bootstrap": "^0.31.2",
-    "react-bootstrap-table": "4.0.2"
+    "react-bootstrap-table": "^4.0.3"
   },
   "peerDependencies": {
     "react": "15.x"
@@ -30,7 +30,8 @@
   "devDependencies": {
     "nwb": "0.15.x",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "webpack": "^2.2.0"
   },
   "author": "",
   "homepage": "",

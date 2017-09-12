@@ -101,7 +101,8 @@ class BorderlessTable extends Component {
           text: '3', value: 3
       }, {
         text: 'All', value: this.state.data.length
-      } ], // you can change the dropdown list for size per page
+      } ],
+      sizePerPage: '6',
     };
     
     return (
